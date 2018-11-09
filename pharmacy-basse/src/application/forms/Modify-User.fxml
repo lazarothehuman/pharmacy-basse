@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="750.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.forms.ModifyUserController">
+   <children>
+      <Label alignment="CENTER" prefHeight="105.0" prefWidth="400.0" style="-fx-background-color: #ff0000;" text="MODFICAR USER" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" layoutX="124.0" layoutY="112.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="577.0" prefWidth="231.0" spacing="50.0">
+         <children>
+            <JFXTextField fx:id="nomeTf" focusColor="RED" layoutX="35.0" layoutY="117.0" maxWidth="231.0" minWidth="180.0" prefHeight="31.0" prefWidth="231.0" promptText="Insira o nome" unFocusColor="RED" />
+            <JFXTextField fx:id="telefoneTf" focusColor="RED" maxWidth="231.0" minWidth="180.0" prefHeight="31.0" prefWidth="231.0" promptText="Insira o telefone" unFocusColor="RED" />
+            <JFXComboBox fx:id="comboDistrito" prefHeight="25.0" prefWidth="226.0" promptText="Insira o distrito" />
+            <JFXComboBox fx:id="comboPerfil" layoutX="40.0" layoutY="173.0" prefHeight="25.0" prefWidth="228.0" promptText="Insira o perfil" />
+            <JFXTextField fx:id="usernameTf" focusColor="RED" layoutX="35.0" layoutY="235.0" maxWidth="231.0" minWidth="180.0" prefHeight="31.0" prefWidth="231.0" promptText="Insira o username" unFocusColor="RED" />
+            <JFXTextField fx:id="passwordTf" focusColor="RED" layoutX="40.0" layoutY="289.0" maxWidth="231.0" minWidth="180.0" prefHeight="31.0" prefWidth="231.0" promptText="Insira a password" unFocusColor="RED" />
+            <JFXTextField fx:id="repeatPasswordTf" focusColor="RED" layoutX="34.0" layoutY="357.0" maxWidth="231.0" minWidth="180.0" prefHeight="31.0" prefWidth="231.0" promptText="Repita a password" unFocusColor="RED" />
+            <CheckBox fx:id="isActive" mnemonicParsing="false" text="Activo" />
+         </children>
+      </VBox>
+      <JFXButton fx:id="modify" layoutX="161.0" layoutY="705.0" onAction="#modify" prefHeight="31.0" prefWidth="78.0" style="-fx-background-color: #ff0000;" text="Adicionar" textFill="WHITE" />
+      <Label layoutX="67.0" layoutY="125.0" text="Nome:" />
+      <Label layoutX="62.0" layoutY="283.0" text="Distrito:" />
+      <Label layoutX="70.0" layoutY="358.0" text="Perfil" />
+      <Label layoutX="56.0" layoutY="434.0" text="Username:" />
+      <Label layoutX="59.0" layoutY="514.0" text="Password:" />
+      <Label layoutX="59.0" layoutY="203.0" text="Telefone:" />
+   </children>
+</AnchorPane>

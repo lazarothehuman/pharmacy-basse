@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#enterKeyPressed" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.login.LoginController">
+	<children>
+		<Pane layoutX="170.0" layoutY="157.0" prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #10b204; -fx-border-color: #10b204; -fx-border-style: solid; -fx-border-width: 5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="348.0" AnchorPane.topAnchor="0.0">
+			<children>
+				<ImageView fx:id="mainView" fitHeight="208.0" fitWidth="199.0" layoutX="83.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="frelimo.jpg" />
+					</image>
+				</ImageView>
+			</children>
+		</Pane>
+		<JFXTextField fx:id="username" focusColor="#10b204" layoutX="395.0" layoutY="205.0" maxWidth="272.0" minWidth="229.0" prefHeight="45.0" prefWidth="272.0" promptText="Usuario" unFocusColor="#10b204">
+			<font>
+				<Font size="18.0" />
+			</font>
+		</JFXTextField>
+		<Hyperlink fx:id="forgotPassword" layoutX="401.0" layoutY="380.0" onAction="#forgottenPassword" text="Esqueceu a password?" />
+		<JFXButton fx:id="aceder" layoutX="598.0" layoutY="379.0" onAction="#aceder" style="-fx-background-color: #ffffff; -fx-border-color: #10b204;" text="Aceder" textFill="#10b204" />
+		<JFXPasswordField fx:id="password" focusColor="#10b204" layoutX="395.0" layoutY="288.0" maxWidth="272.0" minWidth="272.0" onAction="#enterKeyPressed" onKeyPressed="#enterKeyPressed" prefHeight="31.0" prefWidth="272.0" promptText="Senha" unFocusColor="#10b204">
+			<font>
+				<Font size="18.0" />
+			</font>
+		</JFXPasswordField>
+      <Label alignment="CENTER" layoutX="395.0" layoutY="56.0" prefHeight="92.0" prefWidth="272.0" text="Farmacia Baddam" textFill="#10b204">
+         <font>
+            <Font name="Comic Sans MS" size="24.0" />
+         </font>
+      </Label>
+	</children>
+</AnchorPane>
