@@ -5,15 +5,16 @@ import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
-
+import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
-
+import mz.humansolutions.models.dao.MedicamentoDao;
 import mz.humansolutions.models.dao.ProfileDao;
 import mz.humansolutions.models.dao.SessionHelperDao;
 import mz.humansolutions.models.dao.TransaccaoDao;
 import mz.humansolutions.models.dao.UserDao;
+import mz.humansolutions.models.dao.jpa.MedicamentoJpaDao;
 import mz.humansolutions.models.dao.jpa.ProfileJpaDao;
 import mz.humansolutions.models.dao.jpa.SessionHelperJpaDao;
 import mz.humansolutions.models.dao.jpa.TransaccaoJpaDao;
@@ -26,6 +27,7 @@ public class DataManagerImp implements DataManager {
 	UserDao userDao = new UserJpaDao();
 	SessionHelperDao sessionHelperDao = new SessionHelperJpaDao();
 	TransaccaoDao transaccaoDao = new TransaccaoJpaDao();
+	MedicamentoDao medicamentoDao=new MedicamentoJpaDao();
 
 	@Override
 	public void createUser(User user) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -139,6 +141,21 @@ public class DataManagerImp implements DataManager {
 
 	public List<User> findUsers(String username, String nome, Profile profile, Boolean active) {
 		return userDao.find(username, nome, profile, active);
+	}
+
+	@Override
+	public void addMedicamento(Medicamento medicamento) {
+		if(medicamento!=null) {
+			medicamentoDao.create(medicamento);
+		}
+		
+	}
+
+	@Override
+	public List<Medicamento> findMedicamento(Long id,String fabricante,Boolean active,String nome,Double precoUnitario,
+			Integer quadntidadeStock,String paisOrigem) {
+		
+		return medicamentoDao.findMedicamento(id,fabricante,active,nome,precoUnitario,quadntidadeStock,paisOrigem);
 	}
 
 }

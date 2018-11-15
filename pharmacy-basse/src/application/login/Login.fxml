@@ -14,7 +14,7 @@
 			<children>
 				<ImageView fx:id="mainView" fitHeight="208.0" fitWidth="199.0" layoutX="83.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
 					<image>
-						<Image url="frelimo.jpg" />
+						<Image url="Farmacia baddam.png" />
 					</image>
 				</ImageView>
 			</children>

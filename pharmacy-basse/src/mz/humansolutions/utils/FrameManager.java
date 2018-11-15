@@ -28,8 +28,8 @@ public class FrameManager {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Freliquotas");
-			primaryStage.getIcons().add(new Image("frelimo.jpg"));
+			primaryStage.setTitle("Farmacia Baddam");
+			primaryStage.getIcons().add(new Image("Farmacia baddam.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 			primaryStage.setOnCloseRequest(e -> {
@@ -52,8 +52,8 @@ public class FrameManager {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Freliquotas Login");
-			primaryStage.getIcons().add(new Image("frelimo.jpg"));
+			primaryStage.setTitle("Farmacia Baddam");
+			primaryStage.getIcons().add(new Image("Farmacia baddam.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 			primaryStage.setOnCloseRequest(e -> {
@@ -107,14 +107,14 @@ public class FrameManager {
 		Stage primaryStage = new Stage();
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(url));
+			loader.setLocation(getClass().getResource("/application/forms/Add-Medicamento.fxml"));
 			loader.load();
 			Parent root = loader.getRoot();
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Freliquotas");
-			primaryStage.getIcons().add(new Image("frelimo.jpg"));
+			primaryStage.setTitle("Farmacia Baddam");
+			primaryStage.getIcons().add(new Image("Farmacia baddam.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 		} catch (Exception e) {
@@ -186,5 +186,27 @@ public class FrameManager {
 
 
 
+	public void addMedicamento(User user) {
+		if (user != null) {
+			Profile profile = user.getProfile();
+			Transaccao transaction = dataManager.findTransaccao(202l);
+			//if (transaction.getProfiles().contains(profile))
+				load("");
+			//else
+				//AlertUtils.alertSemPrivelegio();
+		}
+	}
+	
+	public void addMovimento(User user) {
+		if (user != null) {
+			Profile profile = user.getProfile();
+			Transaccao transaction = dataManager.findTransaccao(203l);
+			if (transaction.getProfiles().contains(profile))
+				load(transaction.getUrl());
+			else
+				AlertUtils.alertSemPrivelegio();
+		}
+	}
+	
 
 }

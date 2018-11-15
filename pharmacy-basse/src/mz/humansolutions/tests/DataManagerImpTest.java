@@ -41,11 +41,11 @@ public class DataManagerImpTest {
 
 		Profile profile = dataManager.findProfile("Administrador informatico");
 		User user = new User();
-		user.setUsername("lazaro");
-		user.setName("Lazaro Mathe Junior");
+		user.setUsername("zainadine");
+		user.setName("Zainadine Duarte Mangue Abdulcadre");
 		user.setProfile(profile);
 		user.setPassword("1234");
-		user.setTelefone("+258825004957");
+		user.setTelefone("+258843805781");
 		profile.addUser(user);
 		
 

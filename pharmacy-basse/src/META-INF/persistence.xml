@@ -6,6 +6,8 @@
 	<persistence-unit name="pharmacy">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>mz.humansolutions.models.User</class>
+		<class>mz.humansolutions.models.Medicamento</class>
+		<class>mz.humansolutions.models.Movimento</class>
 		<class>mz.humansolutions.models.Profile</class>
 		<class>mz.humansolutions.models.Transaccao</class>
 		<class>mz.humansolutions.utils.SessionHelper</class>
