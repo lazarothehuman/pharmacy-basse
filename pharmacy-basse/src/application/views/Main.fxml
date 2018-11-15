@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.MainController">
+   <children>
+      <HBox layoutX="14.0" layoutY="14.0" prefHeight="76.0" prefWidth="574.0">
+         <children>
+            <ImageView fitHeight="110.0" fitWidth="429.0" pickOnBounds="true" preserveRatio="true" />
+            <Pane prefHeight="110.0" prefWidth="147.0">
+               <children>
+                  <VBox prefHeight="110.0" prefWidth="146.0">
+                     <children>
+                        
+                        <Label alignment="TOP_CENTER" text="User Logado" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+      <MenuBar layoutX="14.0" layoutY="124.0" prefHeight="25.0" prefWidth="574.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Adicionar">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Medicamento" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Verificar">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Relatorios">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Informar">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Sistema">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <Label alignment="BOTTOM_CENTER" layoutX="70.0" layoutY="383.0" prefHeight="17.0" prefWidth="443.0" text="Produzido pela Basse RND" textOverrun="CENTER_ELLIPSIS" />
+      <HBox layoutX="14.0" layoutY="173.0" prefHeight="169.0" prefWidth="574.0" spacing="50.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="162.0" text="Movimentos" />
+            <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="162.0" text="Venda" />
+            <Button mnemonicParsing="false" onAction="#addMedicamento" prefHeight="169.0" prefWidth="162.0" text="Registrar Medicamento" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
