@@ -67,7 +67,7 @@ public class LoginController implements Initializable {
 				}
 				if (loginOk) {
 					dataManager.setSelectedUser(user);
-					frameManagers.mainController();
+					frameManagers.mainController2();
 					Stage stage = (Stage) aceder.getScene().getWindow();
 					stage.close();
 				}
