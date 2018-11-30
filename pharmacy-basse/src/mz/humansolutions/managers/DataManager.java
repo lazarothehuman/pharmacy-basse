@@ -36,6 +36,7 @@ public interface DataManager {
 	public void addMedicamento(Medicamento medicamento);
 	public List<Medicamento> findMedicamento(Long id,String fabricante,Boolean active,String nome,Double precoUnitario,
 			Integer quadntidadeStock,String paisOrigem);
+	void updateMedicamento(Medicamento selectedMedicamento);
 
 
 }

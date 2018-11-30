@@ -15,6 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
+import mz.humansolutions.managers.DataManagerImp;
+import mz.humansolutions.models.User;
+import mz.humansolutions.utils.FrameManager;
 
 public class MainController2 implements Initializable {
 
@@ -27,6 +30,9 @@ public class MainController2 implements Initializable {
 	@FXML
 	Button settingsButton;
 
+	FrameManager frameManager=new FrameManager();
+	DataManagerImp dataManager=new DataManagerImp();
+	User user;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -36,6 +42,7 @@ public class MainController2 implements Initializable {
 	}
 
 	public void setContextMenu() {
+		user=dataManager.findCurrentUser();
 		MenuItem addCliente = new MenuItem("Adicionar cliente");
 		MenuItem viewClientes = new MenuItem("Visualizar todos clientes");
 		final ContextMenu contextMenuCliente = new ContextMenu();
@@ -104,6 +111,15 @@ public class MainController2 implements Initializable {
 		});
 		
 		settingsButton.setContextMenu(contextMenuSettings);
+	}
+	
+	public void visualizar() {
+		frameManager.searchMedicamento();
+	}
+
+	
+	public void entrada() {
+		frameManager.addMovimento(user);
 	}
 
 }

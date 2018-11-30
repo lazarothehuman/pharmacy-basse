@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.forms.ModifyMedicamentoController">
+   <children>
+      <Label alignment="CENTER" prefHeight="86.0" prefWidth="400.0" style="-fx-background-color: #32CD32;" text="MODIFICAR MEDICAMENTO" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="107.0" text="Nome:" />
+      <Label layoutX="60.0" layoutY="264.0" text="Pais:" />
+      <Label layoutX="60.0" layoutY="332.0" text="Preco:" />
+      <Label layoutX="60.0" layoutY="185.0" text="Fabricante:" />
+      <TextField fx:id="nomeTF" layoutX="200.0" layoutY="103.0" prefHeight="25.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboFabricante" layoutX="200.0" layoutY="181.0" prefWidth="150.0" />
+      <TextField fx:id="paisTF" layoutX="200.0" layoutY="258.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="precoTF" layoutX="200.0" layoutY="328.0" prefHeight="25.0" prefWidth="150.0" />
+      <Button fx:id="modificar" layoutX="233.0" layoutY="516.0" mnemonicParsing="false" onAction="#modify" prefHeight="25.0" prefWidth="117.0" text="Modificar" />
+      <TextField fx:id="quantidadeTF" layoutX="200.0" layoutY="398.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="60.0" layoutY="402.0" text="Quantidade:" />
+      <Button fx:id="cancelar" layoutX="60.0" layoutY="517.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="117.0" text="Cancelar" />
+   </children>
+</AnchorPane>

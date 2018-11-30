@@ -1,5 +1,6 @@
 package mz.humansolutions.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -67,16 +68,16 @@ public class Movimento {
 		return data;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setData(Date localDate) {
+		this.data = localDate;
 	}
 
 	public Date getData_validade() {
 		return data_validade;
 	}
 
-	public void setData_validade(Date data_validade) {
-		this.data_validade = data_validade;
+	public void setData_validade(Date localDate) {
+		this.data_validade = localDate;
 	}
 
 	public Medicamento getMedicamento() {

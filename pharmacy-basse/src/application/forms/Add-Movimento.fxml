@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.forms.AddMovimentoController">
+   <children>
+      <Label alignment="CENTER" prefHeight="86.0" prefWidth="400.0" style="-fx-background-color: #32CD32;" text="ACTUALIZAR STOCK" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="107.0" text="Medicamento:" />
+      <Label layoutX="60.0" layoutY="284.0" text="Quantidade:" />
+      <Label layoutX="60.0" layoutY="372.0" text="Data de Validade:" />
+      <Label layoutX="60.0" layoutY="195.0" text="Fornecedor" />
+      <ComboBox fx:id="comboFornecedor" layoutX="188.0" layoutY="191.0" prefHeight="25.0" prefWidth="174.0" promptText="Escolha o fornecedor" />
+      <TextField fx:id="quantidadeTf" layoutX="188.0" layoutY="278.0" prefHeight="25.0" prefWidth="174.0" promptText="Quantidade a adicionar" />
+      <Button fx:id="submeter" layoutX="174.0" layoutY="523.0" mnemonicParsing="false" onAction="#submeter" text="Submeter" />
+      <ComboBox fx:id="comboMedicamento" layoutX="188.0" layoutY="103.0" prefHeight="25.0" prefWidth="174.0" promptText="Escolha o medicamento" />
+      <DatePicker fx:id="dataValidade" layoutX="188.0" layoutY="368.0" promptText="Insira a data de validade" />
+   </children>
+</AnchorPane>

@@ -62,14 +62,14 @@ public class DataManagerImpTest {
 	@Test
 	public void testCreateTransaction() {
 		Transaccao transaction = new Transaccao();
-		transaction.setCode(201l);
-		transaction.setUrl("/application/forms/Add-Membro.fxml");
+		transaction.setCode(204l);
+		transaction.setUrl("/application/forms/Modify-Medicamento.fxml");
 		dataManager.createTransaction(transaction);
 		Assert.assertNotNull(transaction.getId());
 	}
 
 	@Test
-	public void testFindTransactionByCode() {
+	public void testFindTransactionByCode() {// works but lazy
 		Transaccao transaccao = dataManager.findTransaccao(201l);
 		Assert.assertNotNull(transaccao);
 		Assert.assertEquals("/application/forms/Add-Membro.fxml", transaccao.getUrl());
@@ -78,13 +78,27 @@ public class DataManagerImpTest {
 	@Test
 	public void testCreateTransactionProfile() {// failed
 		Profile profile = dataManager.findProfile(1l);
-		Transaccao transaccao = dataManager.findTransaccao(201l);
+		Transaccao transaccao = dataManager.findTransaccao(203l);
 		profile.getTransaccoes().add(transaccao);
 		transaccao.addProfile(profile);
 		dataManager.updateProfile(profile);
 		dataManager.updateTransaccao(transaccao);
 		Assert.assertEquals(2, profile.getTransaccoes().size());
 		Assert.assertEquals(2, transaccao.getProfiles().size());
+	}
+	
+	@Test
+	public void testFindProfileTransaction() {
+		Profile profile = dataManager.findProfile(1l);
+		List<Transaccao> transaccoes = profile.getTransaccoes();
+		Assert.assertEquals(1, transaccoes.size());
+	}
+	
+	@Test
+	public void testFindTransaccaoProfile() {
+		Transaccao transaccao = dataManager.findTransaccao(202l);
+		List<Profile> profiles = transaccao.getProfiles();
+		Assert.assertEquals(1, profiles.size());
 	}
 
 

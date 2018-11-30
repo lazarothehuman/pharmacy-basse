@@ -63,7 +63,7 @@
       								</ImageView>
       							</graphic>
       						</JFXButton>
-      						<JFXButton alignment="TOP_LEFT" layoutX="14.0" layoutY="314.0" prefHeight="39.0" prefWidth="266.0" style="-fx-background-color: #228B22;" styleClass="buttonMenu" stylesheets="estilos.css" text="Visualizar" textFill="WHITE">
+      						<JFXButton alignment="TOP_LEFT" layoutX="14.0" layoutY="314.0" prefHeight="39.0" prefWidth="266.0" style="-fx-background-color: #228B22;" styleClass="buttonMenu" stylesheets="estilos.css" text="Visualizar" onAction="#visualizar" textFill="WHITE">
       							<graphic>
       								<ImageView fitHeight="22.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
       									<image>
@@ -84,7 +84,7 @@
       								<Insets bottom="5.0" top="5.0" />
       							</padding>
       						</Label>
-      						<JFXButton alignment="TOP_LEFT" layoutX="13.0" layoutY="403.0" prefHeight="39.0" prefWidth="266.0" style="-fx-background-color: #228B22;" styleClass="buttonMenu" stylesheets="estilos.css" text="Entradas e saidas" textFill="WHITE">
+      						<JFXButton alignment="TOP_LEFT" layoutX="13.0" layoutY="403.0" prefHeight="39.0" prefWidth="266.0" style="-fx-background-color: #228B22;" styleClass="buttonMenu" stylesheets="estilos.css" text="Entradas e saidas" onAction="#entrada" textFill="WHITE">
       							<graphic>
       								<ImageView fitHeight="22.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
       									<image>
