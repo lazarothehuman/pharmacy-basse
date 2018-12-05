@@ -16,18 +16,18 @@ public class TransaccaoJpaDao implements TransaccaoDao {
 	@Override
 	public Transaccao find(Long code) {
 
-			entityManager.getTransaction().begin();
-			TypedQuery<Transaccao> query = entityManager
-					.createQuery("select transaccao from Transaccao transaccao join fetch transaccao.profiles"+ " where transaccao.code = :code", Transaccao.class);
-			query.setParameter("code", code);
-			List<Transaccao> transaccaos = query.getResultList();
-			entityManager.getTransaction().commit();
-			if (transaccaos.isEmpty())
-				return null;
-			Transaccao transaccao = transaccaos.get(0);
-			return transaccao;
-		
-	}
+		entityManager.getTransaction().begin();
+		TypedQuery<Transaccao> query = entityManager
+				.createQuery("select transaccao from Transaccao transaccao"+ " where transaccao.code = :code", Transaccao.class);
+		query.setParameter("code", code);
+		List<Transaccao> transaccaos = query.getResultList();
+		entityManager.getTransaction().commit();
+		if (transaccaos.isEmpty())
+			return null;
+		Transaccao transaccao = transaccaos.get(0);
+		return transaccao;
+	
+}
 
 	@Override
 	public void create(Transaccao transaction) {

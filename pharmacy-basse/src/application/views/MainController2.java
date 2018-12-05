@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import mz.humansolutions.managers.DataManagerImp;
 import mz.humansolutions.models.User;
@@ -24,6 +25,9 @@ public class MainController2 implements Initializable {
 	@FXML
 	Button clienteBtn;
 
+	@FXML
+	AnchorPane AnchorPanePrincipal;
+	
 	@FXML
 	Button userBtn;
 
@@ -122,4 +126,8 @@ public class MainController2 implements Initializable {
 		frameManager.addMovimento(user);
 	}
 
+	public void venda() {
+		frameManager.venda(user);
+	}
+	
 }

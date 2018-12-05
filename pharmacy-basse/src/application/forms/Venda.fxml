@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="859.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.forms.VendaController">
+   <children>
+      <SplitPane dividerPositions="0.16326530612244897" layoutX="169.0" layoutY="28.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="27.0" prefWidth="1129.0" style="-fx-background-color: #000000;">
+               <children>
+                  <Pane id="headerPane" fx:id="mainTab" layoutY="-2.0" prefHeight="89.0" prefWidth="144.0" style="-fx-background-color: #32CD32;">
+                     <children>
+                        <VBox alignment="CENTER" layoutX="1.0" layoutY="3.0" prefHeight="81.0" prefWidth="144.0" style="-fx-background-color: #32CD32;">
+                           <children>
+                              <Label fx:id="lblUser" alignment="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="25.0" prefWidth="115.0" text="Candinha" textFill="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblProfile" alignment="CENTER" layoutX="9.0" layoutY="36.0" prefHeight="34.0" prefWidth="140.0" style="-fx-background-color: #32CD32;" text="Directora" textFill="WHITE" wrapText="true" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+                  <Label alignment="TOP_CENTER" layoutX="146.0" layoutY="6.0" prefHeight="81.0" prefWidth="1132.0" style="-fx-background-color: #32CD32;" text="Venda" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="146.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" layoutX="417.0" layoutY="43.0" prefHeight="25.0" prefWidth="274.0">
+                     <children>
+                        <Hyperlink fx:id="home" layoutX="604.0" layoutY="43.0" text="Home" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="about" layoutX="725.0" layoutY="43.0" text="Sobre" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                     </children>
+                  </HBox>
+                  <ImageView fitHeight="70.0" fitWidth="83.0" layoutX="800.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                      
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="477.0" prefWidth="961.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <VBox layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="334.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Medicamento:" />
+                              <TextField fx:id="medicamentoTf">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Quantidade:" />
+                              <TextField fx:id="quantidadeTf">
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <Label text="Stock: " />
+                              <Label fx:id="stockLb" text="0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Preco unitario:" />
+                              <TextField fx:id="precoTf" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="3.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                           <children>
+                              <Button fx:id="adicionarB" mnemonicParsing="false" onAction="#adicionar" prefWidth="100.0" text="Adicionar" />
+                              <Button fx:id="retirarB" mnemonicParsing="false" onAction="#retirarMedicamento" prefWidth="100.0" text="Retirar" />
+                              <Button fx:id="cancelarB" mnemonicParsing="false" prefWidth="100.0" text="Cancelar" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="389.0" layoutY="1.0" prefHeight="200.0" prefWidth="334.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Sub-Total:" />
+                              <TextField fx:id="subTf" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Desconto:" />
+                              <TextField fx:id="descontoTf" onKeyPressed="#enterKeyPressedValores" onMouseDragExited="#valores" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="23.0">
+                           <children>
+                              <Label text="Total:" />
+                              <TextField fx:id="totalTf" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="submeterB" mnemonicParsing="false" onAction="#submeter" text="Submeter" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <TextField fx:id="pesquisaTf" layoutX="656.0" onKeyPressed="#enterKeyPressed" prefHeight="25.0" prefWidth="200.0" promptText="pesquisar" />
+                  <TableView fx:id="tabListItems" layoutX="656.0" layoutY="25.0" onMouseClicked="#listToFields" prefHeight="393.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="medicamentosColumn" prefWidth="199.0" text="Medicamento" />
+                     </columns>
+                  </TableView>
+                  <AnchorPane layoutY="190.0" minHeight="0.0" minWidth="0.0" prefHeight="228.0" prefWidth="675.0">
+                     <children>
+                        <TableView fx:id="tabItems" layoutX="6.0" layoutY="1.0" onMouseClicked="#selectedToFields" prefHeight="452.0" prefWidth="676.0" style="-fx-border-width: 2; -fx-border-color: #000000;" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="1.0">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <columns>
+                              <TableColumn fx:id="nomeColumn" prefWidth="137.0" text="Nome" />
+                              <TableColumn fx:id="precoColumn" minWidth="0.0" prefWidth="204.0" text="Preco unitario" />
+                              <TableColumn fx:id="quantidadeColumn" prefWidth="116.0" text="Quantidade" />
+                              <TableColumn fx:id="totalColumn" prefWidth="166.0" text="Total" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

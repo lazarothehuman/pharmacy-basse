@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
@@ -147,7 +148,6 @@ public class FrameManager {
 	}
 
 
-
 	private void load(String url) {
 		Stage primaryStage = new Stage();
 		try {
@@ -271,6 +271,31 @@ public class FrameManager {
 				load(transaction.getUrl(), selectedMedicamento);
 			else
 				AlertUtils.alertSemPrivelegio();
+		}
+		
+	}
+	
+	public void venda(User user) {
+		if (user != null) {
+			Profile profile = user.getProfile();
+			Transaccao transaction = dataManager.findTransaccao(205l);
+			if (transaction.getProfiles().contains(profile))
+				load(transaction.getUrl());
+			else
+				AlertUtils.alertSemPrivelegio();
+		}
+	}
+
+	public void loadContent(AnchorPane pane,String url) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(url));
+			loader.load();
+			pane= loader.getRoot();
+			//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 	}

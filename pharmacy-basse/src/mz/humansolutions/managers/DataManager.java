@@ -6,6 +6,7 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 import mz.humansolutions.models.Medicamento;
+import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
@@ -37,6 +38,7 @@ public interface DataManager {
 	public List<Medicamento> findMedicamento(Long id,String fabricante,Boolean active,String nome,Double precoUnitario,
 			Integer quadntidadeStock,String paisOrigem);
 	void updateMedicamento(Medicamento selectedMedicamento);
+	public void addMovimento(Movimento movimento);
 
 
 }
