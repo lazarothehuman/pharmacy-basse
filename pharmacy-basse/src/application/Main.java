@@ -18,7 +18,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Farmacia Baddam- Login");
-			primaryStage.getIcons().add(new Image("frelimo.jpg"));
+			primaryStage.getIcons().add(new Image("pharmacy.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 			primaryStage.setOnCloseRequest(e -> {

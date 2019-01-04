@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
+import mz.humansolutions.models.Cliente;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
@@ -34,11 +35,12 @@ public interface DataManager {
 	public void updateProfile(Profile profile);
 	public void updateTransaccao(Transaccao transaccao);
 	public List<User> findUsers(String username, String nome, Profile profile, Boolean activee);
-	public void addMedicamento(Medicamento medicamento);
+	public void createMedicamento(Medicamento medicamento);
 	public List<Medicamento> findMedicamento(Long id,String fabricante,Boolean active,String nome,Double precoUnitario,
 			Integer quadntidadeStock,String paisOrigem);
 	void updateMedicamento(Medicamento selectedMedicamento);
-	public void addMovimento(Movimento movimento);
+	public void createMovimento(Movimento movimento);
+	public void createCliente(Cliente cliente);
 
 
 }

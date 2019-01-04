@@ -186,14 +186,14 @@ public class VendaController implements Initializable{
 			movimento.setIdCliente(1);
 			movimento.setRegistador(dataManager.findCurrentUser());
 			
-			dataManager.addMovimento(movimento);
+			dataManager.createMovimento(movimento);
 			
 			aux=med.getMedicamento();
 			aux.setQuantidadeStock(aux.getQuantidadeStock()-med.getQuantidade());
 			dataManager.updateMedicamento(aux);
 		}
 		
-		AlertUtils.alertSucesso("Operacao concluida com sucesso");
+		AlertUtils.alertSucesso("Operação concluída com sucesso");
 		Stage stage = (Stage) subTf.getScene().getWindow();
 		stage.close();
 		refresh();

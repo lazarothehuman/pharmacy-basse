@@ -128,7 +128,7 @@ public class AddMovimentoController implements Initializable{
 			movimento.setIdCliente(1);
 			movimento.setRegistador(dataManager.findCurrentUser());
 			
-			dataManager.addMovimento(movimento);
+			dataManager.createMovimento(movimento);
 			
 			Medicamento medicamentoAux=listMedicamentos.get(medicamento);
 			medicamentoAux.setQuantidadeStock(medicamentoAux.getQuantidadeStock()+quantidade);

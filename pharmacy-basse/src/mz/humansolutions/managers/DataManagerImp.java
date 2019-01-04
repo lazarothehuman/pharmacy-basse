@@ -5,17 +5,20 @@ import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
+import mz.humansolutions.models.Cliente;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
+import mz.humansolutions.models.dao.ClienteDao;
 import mz.humansolutions.models.dao.MedicamentoDao;
 import mz.humansolutions.models.dao.MovimentoDao;
 import mz.humansolutions.models.dao.ProfileDao;
 import mz.humansolutions.models.dao.SessionHelperDao;
 import mz.humansolutions.models.dao.TransaccaoDao;
 import mz.humansolutions.models.dao.UserDao;
+import mz.humansolutions.models.dao.jpa.ClienteJpaDao;
 import mz.humansolutions.models.dao.jpa.MedicamentoJpaDao;
 import mz.humansolutions.models.dao.jpa.MovimentoJpaDao;
 import mz.humansolutions.models.dao.jpa.ProfileJpaDao;
@@ -31,7 +34,8 @@ public class DataManagerImp implements DataManager {
 	SessionHelperDao sessionHelperDao = new SessionHelperJpaDao();
 	TransaccaoDao transaccaoDao = new TransaccaoJpaDao();
 	MedicamentoDao medicamentoDao = new MedicamentoJpaDao();
-	private MovimentoDao movimentoDao=new MovimentoJpaDao();
+	MovimentoDao movimentoDao = new MovimentoJpaDao();
+	ClienteDao clienteDao = new ClienteJpaDao();
 
 	@Override
 	public void createUser(User user) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -146,7 +150,7 @@ public class DataManagerImp implements DataManager {
 	}
 
 	@Override
-	public void addMedicamento(Medicamento medicamento) {
+	public void createMedicamento(Medicamento medicamento) {
 		if (medicamento != null) {
 			medicamentoDao.create(medicamento);
 		}
@@ -169,11 +173,18 @@ public class DataManagerImp implements DataManager {
 
 	}
 
-	public void addMovimento(Movimento movimento) {
-		if(movimento!=null) {
+	public void createMovimento(Movimento movimento) {
+		if (movimento != null) {
 			movimentoDao.create(movimento);
 		}
-		
+
+	}
+
+	@Override
+	public void createCliente(Cliente cliente) {
+		if (cliente != null)
+			clienteDao.create(cliente);
+
 	}
 
 }

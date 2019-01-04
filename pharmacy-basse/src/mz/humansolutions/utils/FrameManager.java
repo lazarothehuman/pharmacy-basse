@@ -1,5 +1,7 @@
 package mz.humansolutions.utils;
 
+import java.io.IOException;
+
 import application.forms.ModifyMedicamentoController;
 import application.forms.ModifyUserController;
 import javafx.application.Platform;
@@ -31,7 +33,7 @@ public class FrameManager {
 			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Farmacia Baddam");
-			primaryStage.getIcons().add(new Image("Farmacia baddam.png"));
+			primaryStage.getIcons().add(new Image("pharmacy.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 			primaryStage.setOnCloseRequest(e -> {
@@ -55,7 +57,7 @@ public class FrameManager {
 			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Farmacia Baddam");
-			primaryStage.getIcons().add(new Image("Farmacia baddam.png"));
+			primaryStage.getIcons().add(new Image("pharmacy.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 			primaryStage.setOnCloseRequest(e -> {
@@ -79,7 +81,7 @@ public class FrameManager {
 			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Farmacia Baddam");
-			primaryStage.getIcons().add(new Image("Farmacia baddam.png"));
+			primaryStage.getIcons().add(new Image("pharmacy.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 			primaryStage.setOnCloseRequest(e -> {
@@ -103,7 +105,7 @@ public class FrameManager {
 			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Procurar ");
-			primaryStage.getIcons().add(new Image("frelimo.jpg"));
+			primaryStage.getIcons().add(new Image("pharmacy.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 		} catch (Exception e) {
@@ -125,7 +127,7 @@ public class FrameManager {
 			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Procurar ");
-			primaryStage.getIcons().add(new Image("Farmacia baddam.png"));
+			primaryStage.getIcons().add(new Image("pharmacy.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 		} catch (Exception e) {
@@ -159,7 +161,7 @@ public class FrameManager {
 			//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Farmacia Baddam");
-			primaryStage.getIcons().add(new Image("Farmacia baddam.png"));
+			primaryStage.getIcons().add(new Image("pharmacy.png"));
 			primaryStage.show();
 			primaryStage.setResizable(false);
 		} catch (Exception e) {
@@ -287,18 +289,38 @@ public class FrameManager {
 	}
 
 	public void loadContent(AnchorPane pane,String url) {
+		AnchorPane contentPane=null;
 		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(url));
-			loader.load();
-			pane= loader.getRoot();
-			//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
-			
-		} catch (Exception e) {
+			contentPane = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		pane.setTopAnchor(contentPane, 0.0);
+		pane.setLeftAnchor(contentPane, 0.0);
+        pane.setBottomAnchor(contentPane, 0.0);
+        pane.setRightAnchor(contentPane, 0.0);
+        pane.getChildren().setAll(contentPane);
+		
+	}
+	
+	public AnchorPane loadContent(String url) {
+		return null;
+		
+	}
+
+	public void addCliente(User user) {
+		if (user != null) {
+			Profile profile = user.getProfile();
+			Transaccao transaction = dataManager.findTransaccao(205l);
+			if (transaction.getProfiles().contains(profile))
+				load(transaction.getUrl());
+			else
+				AlertUtils.alertSemPrivelegio();
 		}
 		
 	}
+
 	
 
 }

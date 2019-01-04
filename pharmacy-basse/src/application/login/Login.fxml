@@ -14,7 +14,7 @@
 			<children>
 				<ImageView fx:id="mainView" fitHeight="208.0" fitWidth="199.0" layoutX="83.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
 					<image>
-						<Image url="Farmacia baddam.png" />
+						<Image url="pharmacy.png" />
 					</image>
 				</ImageView>
 			</children>

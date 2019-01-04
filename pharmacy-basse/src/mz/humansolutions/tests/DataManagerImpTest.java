@@ -3,6 +3,7 @@ package mz.humansolutions.tests;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
@@ -10,10 +11,10 @@ import org.junit.jupiter.api.Test;
 
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
-
+import mz.humansolutions.models.Cliente;
 import mz.humansolutions.models.Mes;
 import mz.humansolutions.models.Profile;
-
+import mz.humansolutions.models.Sexo;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
 
@@ -62,23 +63,23 @@ public class DataManagerImpTest {
 	@Test
 	public void testCreateTransaction() {
 		Transaccao transaction = new Transaccao();
-		transaction.setCode(205l);
-		transaction.setUrl("/application/forms/Venda.fxml");
+		transaction.setCode(301l);
+		transaction.setUrl("/application/views/View-Medicamentos.fxml");
 		dataManager.createTransaction(transaction);
 		Assert.assertNotNull(transaction.getId());
 	}
 
 	@Test
 	public void testFindTransactionByCode() {// works but lazy
-		Transaccao transaccao = dataManager.findTransaccao(201l);
+		Transaccao transaccao = dataManager.findTransaccao(203l);
 		Assert.assertNotNull(transaccao);
-		Assert.assertEquals("/application/forms/Add-Membro.fxml", transaccao.getUrl());
+		Assert.assertEquals("/application/forms/Add-Movimento.fxml", transaccao.getUrl());
 	}
 
 	@Test
 	public void testCreateTransactionProfile() {// failed
 		Profile profile = dataManager.findProfile(1l);
-		Transaccao transaccao = dataManager.findTransaccao(205l);
+		Transaccao transaccao = dataManager.findTransaccao(202l);
 		profile.getTransaccoes().add(transaccao);
 		transaccao.addProfile(profile);
 		dataManager.updateProfile(profile);
@@ -96,9 +97,19 @@ public class DataManagerImpTest {
 	
 	@Test
 	public void testFindTransaccaoProfile() {
-		Transaccao transaccao = dataManager.findTransaccao(202l);
+		Transaccao transaccao = dataManager.findTransaccao(203l);
 		List<Profile> profiles = transaccao.getProfiles();
 		Assert.assertEquals(1, profiles.size());
+	}
+	
+	@Test
+	public void testCreateCliente() {
+		Cliente cliente = new Cliente();
+		cliente.setNome("Sheridan Oliveira");
+		cliente.setDataNascimento(new Date());
+		cliente.setSexo(Sexo.MASCULINO);
+		dataManager.createCliente(cliente);
+		Assert.assertNotNull(cliente.getId());
 	}
 
 

@@ -91,7 +91,7 @@ public class AddMedicamentoController implements Initializable{
 			}
 			
 			if(duplicate==false) {
-				dataManager.addMedicamento(medicamento);
+				dataManager.createMedicamento(medicamento);
 				
 				AlertUtils.alertSucesso("Medicamento adicionado com sucesso");
 				Stage stage = (Stage) adicionar.getScene().getWindow();

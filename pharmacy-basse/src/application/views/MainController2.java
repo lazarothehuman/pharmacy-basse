@@ -3,19 +3,14 @@ package application.views;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPopup;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import mz.humansolutions.managers.DataManagerImp;
 import mz.humansolutions.models.User;
 import mz.humansolutions.utils.FrameManager;
@@ -65,8 +60,8 @@ public class MainController2 implements Initializable {
 		});
 		clienteBtn.setContextMenu(contextMenuCliente);
 
-		MenuItem addUser = new MenuItem("Adicionar usuário");
-		MenuItem viewUser = new MenuItem("Visualizar todos usuários");
+		MenuItem addUser = new MenuItem("Adicionar usuï¿½rio");
+		MenuItem viewUser = new MenuItem("Visualizar todos usuï¿½rios");
 		final ContextMenu contextMenuUser = new ContextMenu();
 		contextMenuUser.getItems().addAll(addUser, viewUser);
 		addUser.setOnAction(new EventHandler<ActionEvent>() {
@@ -85,8 +80,8 @@ public class MainController2 implements Initializable {
 
 		MenuItem addPerfil = new MenuItem("Adicionar perfil");
 		MenuItem viewPerfis = new MenuItem("Visualizar todos perfis");
-		MenuItem addTransaccao = new MenuItem("Adicionar transação");
-		MenuItem viewTransaccoes = new MenuItem("Visualizar todas transações");
+		MenuItem addTransaccao = new MenuItem("Adicionar transaï¿½ï¿½o");
+		MenuItem viewTransaccoes = new MenuItem("Visualizar todas transaï¿½ï¿½es");
 		final ContextMenu contextMenuSettings = new ContextMenu();
 		contextMenuSettings.getItems().addAll(addPerfil, viewPerfis, addTransaccao, viewTransaccoes);
 		addPerfil.setOnAction(new EventHandler<ActionEvent>() {
@@ -118,7 +113,7 @@ public class MainController2 implements Initializable {
 	}
 	
 	public void visualizar() {
-		frameManager.searchMedicamento();
+		frameManager.loadContent(AnchorPanePrincipal, "");;
 	}
 
 	
@@ -128,6 +123,10 @@ public class MainController2 implements Initializable {
 
 	public void venda() {
 		frameManager.venda(user);
+	}
+	
+	public void addCliente() {
+		frameManager.addCliente(user);
 	}
 	
 }
