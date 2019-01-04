@@ -45,7 +45,7 @@ public class FrameManager {
 		}
 
 	}
-	
+
 	public void mainController2() {
 		Stage primaryStage = new Stage();
 		try {
@@ -114,8 +114,6 @@ public class FrameManager {
 
 	}
 
-
-	
 	public void searchMedicamento() {
 		Stage primaryStage = new Stage();
 		try {
@@ -136,8 +134,6 @@ public class FrameManager {
 
 	}
 
-
-
 	public void addUser(User user) {
 		if (user != null) {
 			Profile profile = user.getProfile();
@@ -149,6 +145,16 @@ public class FrameManager {
 		}
 	}
 
+	private AnchorPane loadContent(String url) {
+		AnchorPane content = null;
+		try {
+			content = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+		return content;
+
+	}
 
 	private void load(String url) {
 		Stage primaryStage = new Stage();
@@ -158,7 +164,7 @@ public class FrameManager {
 			loader.load();
 			Parent root = loader.getRoot();
 			Scene scene = new Scene(root);
-			//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			// scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Farmacia Baddam");
 			primaryStage.getIcons().add(new Image("pharmacy.png"));
@@ -173,7 +179,7 @@ public class FrameManager {
 	private void load(String url, Object object) {
 		Stage primaryStage = new Stage();
 		User user = null;
-		Medicamento medicamento=null;
+		Medicamento medicamento = null;
 		try {
 
 			FXMLLoader loader = new FXMLLoader();
@@ -189,7 +195,7 @@ public class FrameManager {
 					modifyUserController.setUser(user);
 				}
 			}
-			
+
 			else if (object instanceof Medicamento) {
 				medicamento = (Medicamento) object;
 				if (medicamento != null) {
@@ -197,7 +203,7 @@ public class FrameManager {
 					modifyMedicamentoController.setMedicamento(medicamento);
 				}
 			}
-			
+
 			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -220,13 +226,6 @@ public class FrameManager {
 
 	}
 
-
-
-
-
-
-
-
 	public void viewUsers(User user) {
 		if (user != null) {
 			Profile profile = user.getProfile();
@@ -239,10 +238,6 @@ public class FrameManager {
 
 	}
 
-
-
-
-
 	public void addMedicamento(User user) {
 		if (user != null) {
 			Profile profile = user.getProfile();
@@ -253,7 +248,7 @@ public class FrameManager {
 				AlertUtils.alertSemPrivelegio();
 		}
 	}
-	
+
 	public void addMovimento(User user) {
 		if (user != null) {
 			Profile profile = user.getProfile();
@@ -274,9 +269,9 @@ public class FrameManager {
 			else
 				AlertUtils.alertSemPrivelegio();
 		}
-		
+
 	}
-	
+
 	public void venda(User user) {
 		if (user != null) {
 			Profile profile = user.getProfile();
@@ -288,39 +283,22 @@ public class FrameManager {
 		}
 	}
 
-	public void loadContent(AnchorPane pane,String url) {
-		AnchorPane contentPane=null;
-		try {
-			contentPane = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		pane.setTopAnchor(contentPane, 0.0);
-		pane.setLeftAnchor(contentPane, 0.0);
-        pane.setBottomAnchor(contentPane, 0.0);
-        pane.setRightAnchor(contentPane, 0.0);
-        pane.getChildren().setAll(contentPane);
-		
-	}
-	
-	public AnchorPane loadContent(String url) {
-		return null;
-		
-	}
 
-	public void addCliente(User user) {
+
+
+	public AnchorPane addCliente(User user) {
+		AnchorPane content = null;
 		if (user != null) {
 			Profile profile = user.getProfile();
-			Transaccao transaction = dataManager.findTransaccao(205l);
+			Transaccao transaction = dataManager.findTransaccao(206l);
 			if (transaction.getProfiles().contains(profile))
-				load(transaction.getUrl());
+				content = loadContent(transaction.getUrl());
 			else
 				AlertUtils.alertSemPrivelegio();
+			return content;
 		}
-		
-	}
+		return content;
 
-	
+	}
 
 }

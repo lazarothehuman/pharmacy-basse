@@ -212,6 +212,6 @@
             <JFXPopup fx:id="clientPopup" layoutX="12.0" layoutY="14.0" />
 			</children>
 		</Pane>
-		<AnchorPane fx:id="AnchorPanePrincipal" layoutX="300.0" prefHeight="736.0" prefWidth="1104.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-9.0" AnchorPane.topAnchor="0.0" />
+		<AnchorPane fx:id="ContentPane" layoutX="300.0" prefHeight="700.0" prefWidth="1104.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-9.0" AnchorPane.topAnchor="0.0" />
 	</children>
 </AnchorPane>

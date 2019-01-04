@@ -21,7 +21,7 @@ public class MainController2 implements Initializable {
 	Button clienteBtn;
 
 	@FXML
-	AnchorPane AnchorPanePrincipal;
+	AnchorPane ContentPane;
 	
 	@FXML
 	Button userBtn;
@@ -49,7 +49,7 @@ public class MainController2 implements Initializable {
 		addCliente.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Cut...");
+				addCliente();
 			}
 		});
 		viewClientes.setOnAction(new EventHandler<ActionEvent>() {
@@ -113,7 +113,6 @@ public class MainController2 implements Initializable {
 	}
 	
 	public void visualizar() {
-		frameManager.loadContent(AnchorPanePrincipal, "");;
 	}
 
 	
@@ -126,7 +125,14 @@ public class MainController2 implements Initializable {
 	}
 	
 	public void addCliente() {
-		frameManager.addCliente(user);
+		AnchorPane content = frameManager.addCliente(user);
+		if (content != null) {
+			ContentPane.setTopAnchor(content, 0.0);
+			ContentPane.setLeftAnchor(content, 0.0);
+			ContentPane.setBottomAnchor(content, 0.0);
+			ContentPane.setRightAnchor(content, 0.0);
+			ContentPane.getChildren().setAll(content);
+		}
 	}
 	
 }
