@@ -33,7 +33,7 @@ public class MainController implements Initializable {
 	}
 	
 	public void addMovimento() {
-		frameManager.addMovimento(user);
+		frameManager.updateStock(user);
 	}
 
 }

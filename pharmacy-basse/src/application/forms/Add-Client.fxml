@@ -100,7 +100,7 @@
          </font>
       </Label>
       <Line endX="1050.0" layoutX="20.0" layoutY="184.0" startX="35.0" stroke="#c2c2c2" />
-      <JFXButton layoutX="366.0" layoutY="615.0" prefHeight="47.0" prefWidth="149.0" style="-fx-background-color: #006400;" text="Adicionar" textFill="WHITE">
+      <JFXButton layoutX="366.0" layoutY="615.0" onAction="#add" prefHeight="47.0" prefWidth="149.0" style="-fx-background-color: #006400;" text="Adicionar" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>

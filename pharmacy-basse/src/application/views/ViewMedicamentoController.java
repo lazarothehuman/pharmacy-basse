@@ -138,7 +138,7 @@ public class ViewMedicamentoController implements Initializable {
 		if (!paisTf.getText().trim().isEmpty())
 			paisOrigem = paisTf.getText();
 		Boolean activee = Boolean.valueOf(!active.isSelected());
-		List<Medicamento> medicamentos = dataManager.findMedicamento(id, null, activee, nome, null, null, paisOrigem);
+		List<Medicamento> medicamentos = dataManager.findMedicamento(id, null, activee, nome, null, null, paisOrigem, null);
 		System.out.println("size da cena: " + medicamentos.size());
 		if (medicamentos != null) {
 			tableMedicamento.setItems(FXCollections.observableArrayList(medicamentos));

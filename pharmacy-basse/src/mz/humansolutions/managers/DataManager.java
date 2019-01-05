@@ -12,35 +12,53 @@ import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
 
-
-
 public interface DataManager {
-	
+
 	public void createUser(User user) throws UnsupportedEncodingException, GeneralSecurityException;
+
 	public User findUser(String username);
+
 	public List<User> findAllUsers(Boolean active);
+
 	public boolean checkPassword(String password, String pass) throws GeneralSecurityException, IOException;
+
 	public String encryptPassword(String password) throws UnsupportedEncodingException, GeneralSecurityException;
+
 	public User findUser(Long id);
+
 	public void setSelectedUser(User user);
+
 	public User findCurrentUser();
+
 	public void updateUser(User user) throws UnsupportedEncodingException, GeneralSecurityException;
+
 	public Profile findProfile(String string);
 
 	public List<Profile> findProfiles(Boolean active);
-	public void createProfile(Profile profile);
-	public Profile findProfile(Long id);
-	public Transaccao findTransaccao(Long code);
-	public void createTransaction(Transaccao transaction);
-	public void updateProfile(Profile profile);
-	public void updateTransaccao(Transaccao transaccao);
-	public List<User> findUsers(String username, String nome, Profile profile, Boolean activee);
-	public void createMedicamento(Medicamento medicamento);
-	public List<Medicamento> findMedicamento(Long id,String fabricante,Boolean active,String nome,Double precoUnitario,
-			Integer quadntidadeStock,String paisOrigem);
-	void updateMedicamento(Medicamento selectedMedicamento);
-	public void createMovimento(Movimento movimento);
-	public void createCliente(Cliente cliente);
 
+	public void createProfile(Profile profile);
+
+	public Profile findProfile(Long id);
+
+	public Transaccao findTransaccao(Long code);
+
+	public void createTransaction(Transaccao transaction);
+
+	public void updateProfile(Profile profile);
+
+	public void updateTransaccao(Transaccao transaccao);
+
+	public List<User> findUsers(String username, String nome, Profile profile, Boolean activee);
+
+	public void createMedicamento(Medicamento medicamento);
+
+	public List<Medicamento> findMedicamento(Long id, String fabricante, Boolean active, String nome,
+			Double precoUnitario, Integer quadntidadeStock, String paisOrigem, String codigo);
+
+	void updateMedicamento(Medicamento selectedMedicamento);
+
+	public void createMovimento(Movimento movimento);
+
+	public void createCliente(Cliente cliente);
 
 }

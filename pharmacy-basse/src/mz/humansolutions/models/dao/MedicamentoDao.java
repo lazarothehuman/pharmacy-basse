@@ -10,7 +10,7 @@ public interface MedicamentoDao {
 	void create(Medicamento medicamento);
 
 	List<Medicamento> findMedicamento(Long id,String fabricante,Boolean active,String nome,Double precoUnitario,
-			Integer quadntidadeStock,String paisOrigem);
+			Integer quadntidadeStock,String paisOrigem, String codigo);
 
 	void update(Medicamento selectedMedicamento);
 

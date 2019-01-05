@@ -48,7 +48,7 @@ public class AddMovimentoController implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		listMedicamentos = dataManager.findMedicamento(null, null, true, null, null, null, null);
+		listMedicamentos = dataManager.findMedicamento(null, null, true, null, null, null, null, null);
 		System.out.println("SIze da lista="+listMedicamentos.size());
 		if (listMedicamentos != null) {
 			for (Medicamento medicamentoAux : listMedicamentos) {
@@ -135,7 +135,7 @@ public class AddMovimentoController implements Initializable{
 			
 			dataManager.updateMedicamento(medicamentoAux);
 			
-			AlertUtils.alertSucesso("Operacao concluida com sucesso");
+			AlertUtils.alertSucesso("Operação concluída com sucesso");
 			Stage stage = (Stage) comboFornecedor.getScene().getWindow();
 			stage.close();
 			

@@ -28,7 +28,7 @@ public class MedicamentoJpaDao implements MedicamentoDao {
 
 	@Override
 	public List<Medicamento> findMedicamento(Long id, String fabricante, Boolean active, String nome,
-			Double precoUnitario, Integer quadntidadeStock, String paisOrigem) {
+			Double precoUnitario, Integer quadntidadeStock, String paisOrigem, String codigo) {
 		entityManager.getTransaction().begin();
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Medicamento> query = criteriaBuilder.createQuery(Medicamento.class);
@@ -40,6 +40,7 @@ public class MedicamentoJpaDao implements MedicamentoDao {
 		Path<String> nomePath = root.<String>get("nome");
 		Path<String> fabricantePath = root.<String>get("fabricante");
 		Path<String> paisOrigemPath = root.<String>get("paisOrigem");
+		Path<String> codigoPath = root.<String>get("codigo");
 		Path<Double> precoUnitarioPath = root.<Double>get("precoUnitario");
 		Path<Integer> quantidadeStockPath = root.<Integer>get("quantidadeStock");
 		Path<Boolean> activePath = root.<Boolean>get("active");
@@ -67,6 +68,13 @@ public class MedicamentoJpaDao implements MedicamentoDao {
 		if (paisOrigem != null) {
 			if (!paisOrigem.isEmpty()) {
 				Predicate predicate = criteriaBuilder.like(paisOrigemPath, "%" + paisOrigem + "%");
+				predicates.add(predicate);
+			}
+		}
+		
+		if (codigo != null) {
+			if(!codigo.isEmpty()) {
+				Predicate predicate = criteriaBuilder.equal(codigoPath, codigo);
 				predicates.add(predicate);
 			}
 		}

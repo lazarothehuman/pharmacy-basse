@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -22,7 +21,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
 import mz.humansolutions.models.Medicamento;
@@ -139,7 +137,7 @@ public class VendaController implements Initializable{
 		if(!pesquisaTf.getText().trim().isEmpty())
 			nome=pesquisaTf.getText().trim();
 		if(listMedicamentos==null)
-		listMedicamentos = dataManager.findMedicamento(null, null, true, nome, null, null, null);
+		listMedicamentos = dataManager.findMedicamento(null, null, true, nome, null, null, null,null);
 		tabListItems.setItems(FXCollections.observableArrayList(listMedicamentos));
 		
 	}
@@ -194,8 +192,6 @@ public class VendaController implements Initializable{
 		}
 		
 		AlertUtils.alertSucesso("Operação concluída com sucesso");
-		Stage stage = (Stage) subTf.getScene().getWindow();
-		stage.close();
 		refresh();
 	}
 	

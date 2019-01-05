@@ -94,55 +94,44 @@ public class FrameManager {
 
 	}
 
-	public void searchCliente() {
-		Stage primaryStage = new Stage();
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/application/views/View-Client.fxml"));
-			loader.load();
-			Parent root = loader.getRoot();
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Procurar ");
-			primaryStage.getIcons().add(new Image("pharmacy.png"));
-			primaryStage.show();
-			primaryStage.setResizable(false);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public AnchorPane searchCliente(User user) {
+		AnchorPane content = null;
+		if (user != null) {
+			Profile profile = user.getProfile();
+			Transaccao transaction = dataManager.findTransaccao(307l);
+			if (transaction.getProfiles().contains(profile))
+				content = loadContent(transaction.getUrl());
+			else
+				AlertUtils.alertSemPrivelegio();
 		}
+		return content;
+	}
+
+	public AnchorPane searchMedicamento(User user) {
+		AnchorPane content = null;
+		if (user != null) {
+			Profile profile = user.getProfile();
+			Transaccao transaction = dataManager.findTransaccao(301l);
+			if (transaction.getProfiles().contains(profile))
+				content = loadContent(transaction.getUrl());
+			else
+				AlertUtils.alertSemPrivelegio();
+		}
+		return content;
 
 	}
 
-	public void searchMedicamento() {
-		Stage primaryStage = new Stage();
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/application/views/View-Medicamentos.fxml"));
-			loader.load();
-			Parent root = loader.getRoot();
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Procurar ");
-			primaryStage.getIcons().add(new Image("pharmacy.png"));
-			primaryStage.show();
-			primaryStage.setResizable(false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public void addUser(User user) {
+	public AnchorPane addUser(User user) {
+		AnchorPane content = null;
 		if (user != null) {
 			Profile profile = user.getProfile();
 			Transaccao transaction = dataManager.findTransaccao(203l);
 			if (transaction.getProfiles().contains(profile))
-				load(transaction.getUrl());
+				content = loadContent(transaction.getUrl());
 			else
 				AlertUtils.alertSemPrivelegio();
 		}
+		return content;
 	}
 
 	private AnchorPane loadContent(String url) {
@@ -156,23 +145,14 @@ public class FrameManager {
 
 	}
 
-	private void load(String url) {
-		Stage primaryStage = new Stage();
+	private AnchorPane loadContent(String url, Object modelo) {// para casos de modificar um certo dado
+		AnchorPane content = null;
 		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(url));
-			loader.load();
-			Parent root = loader.getRoot();
-			Scene scene = new Scene(root);
-			// scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Farmacia Baddam");
-			primaryStage.getIcons().add(new Image("pharmacy.png"));
-			primaryStage.show();
-			primaryStage.setResizable(false);
-		} catch (Exception e) {
-			e.printStackTrace();
+			content = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
+		} catch (IOException exception) {
+			exception.printStackTrace();
 		}
+		return content;
 
 	}
 
@@ -226,65 +206,72 @@ public class FrameManager {
 
 	}
 
-	public void viewUsers(User user) {
+	public AnchorPane viewUsers(User user) {
+		AnchorPane content = null;
 		if (user != null) {
 			Profile profile = user.getProfile();
 			Transaccao transaction = dataManager.findTransaccao(303l);
-			if (transaction.getProfiles().contains(profile))
-				load(transaction.getUrl());
-			else
+			if (transaction.getProfiles().contains(profile)) {
+				content = loadContent(transaction.getUrl());
+			} else
 				AlertUtils.alertSemPrivelegio();
 		}
-
+		return content;
 	}
 
-	public void addMedicamento(User user) {
+	public AnchorPane addMedicamento(User user) {
+		AnchorPane content = null;
 		if (user != null) {
 			Profile profile = user.getProfile();
 			Transaccao transaction = dataManager.findTransaccao(202l);
-			if (transaction.getProfiles().contains(profile))
-				load(transaction.getUrl());
-			else
+			if (transaction.getProfiles().contains(profile)) {
+				content = loadContent(transaction.getUrl());
+			} else
 				AlertUtils.alertSemPrivelegio();
 		}
+		return content;
 	}
 
-	public void addMovimento(User user) {
+	public AnchorPane updateStock(User user) {
+		AnchorPane content = null;
 		if (user != null) {
 			Profile profile = user.getProfile();
 			Transaccao transaction = dataManager.findTransaccao(203l);
 			if (transaction.getProfiles().contains(profile))
-				load(transaction.getUrl());
+				content = loadContent(transaction.getUrl());
 			else
 				AlertUtils.alertSemPrivelegio();
 		}
+		return content;
 	}
 
-	public void modifyMedicamento(User user, Medicamento selectedMedicamento) {
+	public AnchorPane modifyMedicamento(User user, Medicamento selectedMedicamento) {
+		AnchorPane content = null;
 		if (user != null && selectedMedicamento != null) {
 			Profile profile = user.getProfile();
 			Transaccao transaction = dataManager.findTransaccao(204l);
 			if (transaction.getProfiles().contains(profile))
-				load(transaction.getUrl(), selectedMedicamento);
+				content = loadContent(transaction.getUrl(), selectedMedicamento);
 			else
 				AlertUtils.alertSemPrivelegio();
 		}
 
+		return content;
+
 	}
 
-	public void venda(User user) {
+	public AnchorPane venda(User user) {
+		AnchorPane content = null;
 		if (user != null) {
 			Profile profile = user.getProfile();
 			Transaccao transaction = dataManager.findTransaccao(205l);
 			if (transaction.getProfiles().contains(profile))
-				load(transaction.getUrl());
+				content = loadContent(transaction.getUrl());
 			else
 				AlertUtils.alertSemPrivelegio();
 		}
+		return content;
 	}
-
-
-
 
 	public AnchorPane addCliente(User user) {
 		AnchorPane content = null;
@@ -295,7 +282,6 @@ public class FrameManager {
 				content = loadContent(transaction.getUrl());
 			else
 				AlertUtils.alertSemPrivelegio();
-			return content;
 		}
 		return content;
 

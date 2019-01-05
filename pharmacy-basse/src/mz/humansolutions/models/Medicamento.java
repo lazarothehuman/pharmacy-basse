@@ -15,10 +15,13 @@ public class Medicamento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(name = "nome", nullable = false, unique = false)
 	private String nome;
+	
+	@Column(nullable = false, unique = true)
+	private String codigo;
 
 	@Column(name = "fabricante", nullable = false, unique = false)
 	private String fabricante;
@@ -39,11 +42,11 @@ public class Medicamento {
 	private List<Movimento> movimento = new ArrayList<>();
 
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -85,6 +88,14 @@ public class Medicamento {
 
 	public void setQuantidadeStock(int quantidadeStock) {
 		this.quantidadeStock = quantidadeStock;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public Boolean getActive() {

@@ -159,10 +159,10 @@ public class DataManagerImp implements DataManager {
 
 	@Override
 	public List<Medicamento> findMedicamento(Long id, String fabricante, Boolean active, String nome,
-			Double precoUnitario, Integer quadntidadeStock, String paisOrigem) {
+			Double precoUnitario, Integer quadntidadeStock, String paisOrigem, String codigo) {
 
 		return medicamentoDao.findMedicamento(id, fabricante, active, nome, precoUnitario, quadntidadeStock,
-				paisOrigem);
+				paisOrigem, codigo);
 	}
 
 	@Override

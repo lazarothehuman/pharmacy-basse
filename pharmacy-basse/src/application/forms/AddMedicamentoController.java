@@ -1,8 +1,6 @@
 package application.forms;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -18,94 +16,105 @@ import mz.humansolutions.managers.DataManagerImp;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.utils.AlertUtils;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
-public class AddMedicamentoController implements Initializable{
-	
+public class AddMedicamentoController implements Initializable {
+
 	@FXML
 	private TextField nomeTF = new TextField();
-	
+
 	@FXML
 	private ComboBox<String> comboFabricante;
-	
-	ObservableList<String> list =FXCollections.observableArrayList("fabricante 1","fabricante 2");
-	
+
+	ObservableList<String> list = FXCollections.observableArrayList("fabricante 1", "fabricante 2");
+
 	@FXML
 	private TextField precoTF = new TextField();
-	
+
 	@FXML
 	private TextField paisTF = new TextField();
+	
+	@FXML
+	private TextField codigoTf = new TextField();
+
 	@FXML
 	private Button adicionar = new Button();
-	
+
 	DataManager dataManager = new DataManagerImp();
 
-	
 	public void add() {
 		Alert alert;
 		String nome = nomeTF.getText().toString();
 		double preco = Double.parseDouble(precoTF.getText().toString());
 		String pais = paisTF.getText().toString();
-		String fabricante =comboFabricante.getSelectionModel().getSelectedItem();
+		String fabricante = comboFabricante.getSelectionModel().getSelectedItem();
 		boolean duplicate = false;
-		
-		if(nome==null || nome.isEmpty()) {
+		String codigo = codigoTf.getText();
+
+		if (nome == null || nome.isEmpty()) {
 			alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setContentText("Por favor insira um nome para o medicamento!");
 			alert.setTitle("Nome inválido");
 			alert.showAndWait();
 			nomeTF.setStyle("-fx-border-color:#ff0000;");
-		}
-		else if(preco==0.0) {
+		} else if (preco == 0.0) {
 			alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setContentText("Por favor insira um preco valido!");
 			alert.setTitle("Preco inválido");
 			alert.showAndWait();
 			precoTF.setStyle("-fx-border-color:#ff0000;");
-		}
-		else if(pais==null || pais.isEmpty()) {
+		} else if (pais == null || pais.isEmpty()) {
 			alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setContentText("Por favor insira o pais de origem deste medicamento!");
 			alert.setTitle("Pais inválido");
 			alert.showAndWait();
 			paisTF.setStyle("-fx-border-color:#ff0000;");
-		}
-		else {
-			Medicamento medicamento=new Medicamento();
-			medicamento.setNome(nome);
-			medicamento.setPrecoUnitario(preco);
-			medicamento.setQuantidadeStock(0);
-			medicamento.setPaisOrigem(pais);
-			medicamento.setFabricante(fabricante);	
-			
-			List<Medicamento> medicamentos=dataManager.findMedicamento(null,fabricante,null,nome,null, null,null);
-			if (medicamentos != null) {
-				for (Medicamento medicamentoAux : medicamentos) {
-					if (medicamentoAux.getNome().equalsIgnoreCase(nome) && medicamentoAux.getFabricante().equalsIgnoreCase(fabricante)) 
-						duplicate = true;	
-				}
-			}
-			
-			if(duplicate==false) {
-				dataManager.createMedicamento(medicamento);
-				
-				AlertUtils.alertSucesso("Medicamento adicionado com sucesso");
-				Stage stage = (Stage) adicionar.getScene().getWindow();
-				stage.close();
-			}
-			else {
+		} else {
+			if (codigo == null || codigo.isEmpty()) {
 				alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText(null);
-				alert.setContentText("O medicamento ja existe!");
-				alert.setTitle("Erro");
+				alert.setContentText("Por favor insira o pais de origem deste medicamento!");
+				alert.setTitle("Pais inválido");
 				alert.showAndWait();
+				codigoTf.setStyle("-fx-border-color:#ff0000;");
+			} else {
+				Medicamento medicamento = new Medicamento();
+				medicamento.setNome(nome);
+				medicamento.setPrecoUnitario(preco);
+				medicamento.setQuantidadeStock(0);
+				medicamento.setPaisOrigem(pais);
+				medicamento.setFabricante(fabricante);
+				medicamento.setCodigo(codigo);
+
+				List<Medicamento> medicamentos = dataManager.findMedicamento(null, fabricante, null, nome, null, null,
+						codigo,null);
+				if (medicamentos != null) {
+					for (Medicamento medicamentoAux : medicamentos) {
+						if (medicamentoAux.getNome().equalsIgnoreCase(nome)
+								&& medicamentoAux.getFabricante().equalsIgnoreCase(fabricante))
+							duplicate = true;
+					}
+				}
+
+				if (duplicate == false) {
+					dataManager.createMedicamento(medicamento);
+
+					AlertUtils.alertSucesso("Medicamento adicionado com sucesso");
+					
+				} else {
+					alert = new Alert(AlertType.ERROR);
+					alert.setHeaderText(null);
+					alert.setContentText("O medicamento ja existe!");
+					alert.setTitle("Erro");
+					alert.showAndWait();
+				}
 			}
 		}
 	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		comboFabricante.setItems(list);

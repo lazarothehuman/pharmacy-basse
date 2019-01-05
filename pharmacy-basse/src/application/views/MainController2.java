@@ -22,26 +22,24 @@ public class MainController2 implements Initializable {
 
 	@FXML
 	AnchorPane ContentPane;
-	
+
 	@FXML
 	Button userBtn;
 
 	@FXML
 	Button settingsButton;
 
-	FrameManager frameManager=new FrameManager();
-	DataManagerImp dataManager=new DataManagerImp();
+	FrameManager frameManager = new FrameManager();
+	DataManagerImp dataManager = new DataManagerImp();
 	User user;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		setContextMenu();
-
-		// ...
 	}
 
 	public void setContextMenu() {
-		user=dataManager.findCurrentUser();
+		user = dataManager.findCurrentUser();
 		MenuItem addCliente = new MenuItem("Adicionar cliente");
 		MenuItem viewClientes = new MenuItem("Visualizar todos clientes");
 		final ContextMenu contextMenuCliente = new ContextMenu();
@@ -60,8 +58,8 @@ public class MainController2 implements Initializable {
 		});
 		clienteBtn.setContextMenu(contextMenuCliente);
 
-		MenuItem addUser = new MenuItem("Adicionar usu�rio");
-		MenuItem viewUser = new MenuItem("Visualizar todos usu�rios");
+		MenuItem addUser = new MenuItem("Adicionar usuário");
+		MenuItem viewUser = new MenuItem("Visualizar todos usuários");
 		final ContextMenu contextMenuUser = new ContextMenu();
 		contextMenuUser.getItems().addAll(addUser, viewUser);
 		addUser.setOnAction(new EventHandler<ActionEvent>() {
@@ -108,24 +106,36 @@ public class MainController2 implements Initializable {
 				System.out.println("Cut...");
 			}
 		});
-		
+
 		settingsButton.setContextMenu(contextMenuSettings);
 	}
-	
-	public void visualizar() {
+
+	public void viewMedicamento() {
+		AnchorPane content = frameManager.searchMedicamento(user);
+		setContent(content);
 	}
 
-	
 	public void entrada() {
-		frameManager.addMovimento(user);
+		AnchorPane content = frameManager.updateStock(user);
+		setContent(content);
 	}
 
 	public void venda() {
-		frameManager.venda(user);
+		AnchorPane content = frameManager.venda(user);
+		setContent(content);
 	}
-	
+
 	public void addCliente() {
 		AnchorPane content = frameManager.addCliente(user);
+		setContent(content);
+	}
+
+	public void addMedicamento() {
+		AnchorPane content = frameManager.addMedicamento(user);
+		setContent(content);
+	}
+
+	private void setContent(AnchorPane content) {
 		if (content != null) {
 			ContentPane.setTopAnchor(content, 0.0);
 			ContentPane.setLeftAnchor(content, 0.0);
@@ -134,5 +144,5 @@ public class MainController2 implements Initializable {
 			ContentPane.getChildren().setAll(content);
 		}
 	}
-	
+
 }
