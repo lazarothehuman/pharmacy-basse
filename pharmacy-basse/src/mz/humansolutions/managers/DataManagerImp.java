@@ -3,12 +3,14 @@ package mz.humansolutions.managers;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.util.Date;
 import java.util.List;
 
 import mz.humansolutions.models.Cliente;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
+import mz.humansolutions.models.Sexo;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
 import mz.humansolutions.models.dao.ClienteDao;
@@ -185,6 +187,20 @@ public class DataManagerImp implements DataManager {
 		if (cliente != null)
 			clienteDao.create(cliente);
 
+	}
+
+	@Override
+	public List<Cliente> findClientes(Long id, String nome, String email, String telefone, Date selectedStartDate,
+			Date selectedEndDate, Sexo sexo, Boolean activee) {
+		return clienteDao.find(id,nome,email,telefone, selectedStartDate, selectedEndDate, sexo, activee);
+	}
+
+	@Override
+	public void updateCliente(Cliente cliente) {
+		if (cliente != null) {
+			clienteDao.update(cliente);
+		}
+		
 	}
 
 }

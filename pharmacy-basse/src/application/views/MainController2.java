@@ -53,7 +53,7 @@ public class MainController2 implements Initializable {
 		viewClientes.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Cut...");
+				viewCliente();
 			}
 		});
 		clienteBtn.setContextMenu(contextMenuCliente);
@@ -127,6 +127,10 @@ public class MainController2 implements Initializable {
 
 	public void addCliente() {
 		AnchorPane content = frameManager.addCliente(user);
+		setContent(content);
+	}
+	public void viewCliente() {
+		AnchorPane content = frameManager.searchCliente(user);
 		setContent(content);
 	}
 

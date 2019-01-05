@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
+import mz.humansolutions.models.Cliente;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.Transaccao;
@@ -98,7 +99,7 @@ public class FrameManager {
 		AnchorPane content = null;
 		if (user != null) {
 			Profile profile = user.getProfile();
-			Transaccao transaction = dataManager.findTransaccao(307l);
+			Transaccao transaction = dataManager.findTransaccao(306l);
 			if (transaction.getProfiles().contains(profile))
 				content = loadContent(transaction.getUrl());
 			else
@@ -285,6 +286,11 @@ public class FrameManager {
 		}
 		return content;
 
+	}
+
+	public void modifyCliente(Cliente cliente, User user) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

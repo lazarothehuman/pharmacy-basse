@@ -63,8 +63,8 @@ public class DataManagerImpTest {
 	@Test
 	public void testCreateTransaction() {
 		Transaccao transaction = new Transaccao();
-		transaction.setCode(206l);
-		transaction.setUrl("/application/forms/Add-Client.fxml");
+		transaction.setCode(306l);
+		transaction.setUrl("/application/views/View-Client.fxml");
 		dataManager.createTransaction(transaction);
 		Assert.assertNotNull(transaction.getId());
 	}
@@ -79,13 +79,13 @@ public class DataManagerImpTest {
 	@Test
 	public void testCreateTransactionProfile() {// failed
 		Profile profile = dataManager.findProfile(1l);
-		Transaccao transaccao = dataManager.findTransaccao(206l);
+		Transaccao transaccao = dataManager.findTransaccao(306l);
 		profile.getTransaccoes().add(transaccao);
 		transaccao.addProfile(profile);
 		dataManager.updateProfile(profile);
 		dataManager.updateTransaccao(transaccao);
-		Assert.assertEquals(2, profile.getTransaccoes().size());
-		Assert.assertEquals(2, transaccao.getProfiles().size());
+		Assert.assertEquals(8, profile.getTransaccoes().size());
+		Assert.assertEquals(8, transaccao.getProfiles().size());
 	}
 	
 	@Test
