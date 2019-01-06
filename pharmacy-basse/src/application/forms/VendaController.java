@@ -136,8 +136,16 @@ public class VendaController implements Initializable{
 		String nome=null;
 		if(!pesquisaTf.getText().trim().isEmpty())
 			nome=pesquisaTf.getText().trim();
-		if(listMedicamentos==null)
+		
 		listMedicamentos = dataManager.findMedicamento(null, null, true, nome, null, null, null,null);
+		
+		if(listItems.size()!=0) {
+			Medicamento medicamentoAux;
+			for(int i=0;i<listItems.size();i++) {
+				medicamentoAux=listItems.get(i).getMedicamento();
+				listMedicamentos.remove(medicamentoAux);
+			}
+		}
 		tabListItems.setItems(FXCollections.observableArrayList(listMedicamentos));
 		
 	}

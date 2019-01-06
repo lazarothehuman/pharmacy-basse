@@ -25,7 +25,7 @@ public class DataManagerImpTest {
 	@Test
 	public void testCreateProfile() {// runned
 		Profile profile = new Profile();
-		profile.setProfilename("Administrador informatico");
+		profile.setProfilename("Caixa");
 		dataManager.createProfile(profile);
 		Assert.assertNotNull(profile.getId());
 	}
@@ -40,13 +40,13 @@ public class DataManagerImpTest {
 	@Test
 	public void testCreateUser() {// done
 
-		Profile profile = dataManager.findProfile("Administrador informatico");
+		Profile profile = dataManager.findProfile("Caixa");
 		User user = new User();
-		user.setUsername("zainadine");
-		user.setName("Zainadine Duarte Mangue Abdulcadre");
+		user.setUsername("caixa");
+		user.setName("caixa");
 		user.setProfile(profile);
 		user.setPassword("1234");
-		user.setTelefone("+258843805781");
+		user.setTelefone("+258");
 		profile.addUser(user);
 		
 
@@ -63,8 +63,8 @@ public class DataManagerImpTest {
 	@Test
 	public void testCreateTransaction() {
 		Transaccao transaction = new Transaccao();
-		transaction.setCode(306l);
-		transaction.setUrl("/application/views/View-Client.fxml");
+		transaction.setCode(302l);
+		transaction.setUrl("/application/views/View-Movimentos.fxml");
 		dataManager.createTransaction(transaction);
 		Assert.assertNotNull(transaction.getId());
 	}
@@ -78,7 +78,7 @@ public class DataManagerImpTest {
 
 	@Test
 	public void testCreateTransactionProfile() {// failed
-		Profile profile = dataManager.findProfile(1l);
+		Profile profile = dataManager.findProfile(4l);
 		Transaccao transaccao = dataManager.findTransaccao(306l);
 		profile.getTransaccoes().add(transaccao);
 		transaccao.addProfile(profile);

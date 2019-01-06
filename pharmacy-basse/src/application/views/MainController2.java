@@ -3,6 +3,8 @@ package application.views;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,7 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import mz.humansolutions.managers.DataManagerImp;
+import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.User;
 import mz.humansolutions.utils.FrameManager;
 
@@ -29,6 +33,18 @@ public class MainController2 implements Initializable {
 	@FXML
 	Button settingsButton;
 
+	@FXML
+	JFXButton registar;
+	
+	@FXML
+	JFXButton visualizarMedicamento;
+	
+	@FXML
+	JFXButton visualizarMovimentos;
+	
+	@FXML
+	VBox seccaoSistema;
+	
 	FrameManager frameManager = new FrameManager();
 	DataManagerImp dataManager = new DataManagerImp();
 	User user;
@@ -40,6 +56,7 @@ public class MainController2 implements Initializable {
 
 	public void setContextMenu() {
 		user = dataManager.findCurrentUser();
+		visibilidadeMenus();
 		MenuItem addCliente = new MenuItem("Adicionar cliente");
 		MenuItem viewClientes = new MenuItem("Visualizar todos clientes");
 		final ContextMenu contextMenuCliente = new ContextMenu();
@@ -114,6 +131,11 @@ public class MainController2 implements Initializable {
 		AnchorPane content = frameManager.searchMedicamento(user);
 		setContent(content);
 	}
+	
+	public void viewMovimento() {
+		AnchorPane content = frameManager.searchMovimento(user);
+		setContent(content);
+	}
 
 	public void entrada() {
 		AnchorPane content = frameManager.updateStock(user);
@@ -139,7 +161,7 @@ public class MainController2 implements Initializable {
 		setContent(content);
 	}
 
-	private void setContent(AnchorPane content) {
+	public void setContent(AnchorPane content) {
 		if (content != null) {
 			ContentPane.setTopAnchor(content, 0.0);
 			ContentPane.setLeftAnchor(content, 0.0);
@@ -148,5 +170,18 @@ public class MainController2 implements Initializable {
 			ContentPane.getChildren().setAll(content);
 		}
 	}
-
-}
+	
+	private void visibilidadeMenus() {
+		Profile profile=user.getProfile();
+		if(profile.getId()==5) {
+			//seccaoSistema.setDisable(true);
+			registar.setDisable(true);
+			settingsButton.setDisable(true);
+			clienteBtn.setDisable(true);
+			userBtn.setDisable(true);
+			visualizarMedicamento.setDisable(true);
+			visualizarMovimentos.setDisable(true);
+		}
+			
+		}
+	}

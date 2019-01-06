@@ -57,6 +57,8 @@ public interface DataManager {
 	public List<Medicamento> findMedicamento(Long id, String fabricante, Boolean active, String nome,
 			Double precoUnitario, Integer quadntidadeStock, String paisOrigem, String codigo);
 
+	public List<Movimento> findMovimento(Long id_medicamento,Boolean active);
+	
 	void updateMedicamento(Medicamento selectedMedicamento);
 
 	public void createMovimento(Movimento movimento);

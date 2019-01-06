@@ -203,4 +203,9 @@ public class DataManagerImp implements DataManager {
 		
 	}
 
+	@Override
+	public List<Movimento> findMovimento(Long id,Boolean active) {
+		return movimentoDao.findMedicamento(id,active);
+	}
+
 }

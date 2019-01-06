@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane onKeyPressed="#enterKeyPressed" prefHeight="600.0" prefWidth="963.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.ViewMedicamentoController">
+<AnchorPane onKeyPressed="#enterKeyPressed" prefHeight="600.0" prefWidth="963.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.ViewMovimentoController">
    <children>
       <SplitPane dividerPositions="0.14046822742474915" layoutX="169.0" layoutY="28.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="27.0" prefWidth="1129.0" style="-fx-background-color: #006400;">
                <children>
-                  <Label alignment="TOP_CENTER" layoutX="107.0" layoutY="17.0" prefHeight="81.0" prefWidth="1132.0" style="-fx-background-color: #006400;" text=" Medicamentos" textFill="WHITE" AnchorPane.bottomAnchor="-17.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="17.0">
+                  <Label alignment="TOP_CENTER" layoutX="86.0" layoutY="22.0" prefHeight="81.0" prefWidth="1132.0" style="-fx-background-color: #006400;" text="Movimentos" textFill="WHITE" AnchorPane.bottomAnchor="-22.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="22.0">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -42,17 +42,19 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="701.0">
                            <children>
-                              <TableView fx:id="tableMedicamento" onMouseClicked="#doubleClickOnMedicamento" prefHeight="452.0" prefWidth="676.0" style="-fx-border-width: 2; -fx-border-color: #000000;" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="tableMovimento" prefHeight="452.0" prefWidth="676.0" style="-fx-border-width: 2; -fx-border-color: #000000;" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
                                     <TableColumn fx:id="codigoColumn" prefWidth="95.0" text="Codigo" />
-                                    <TableColumn fx:id="nomeColumn" prefWidth="137.0" text="Nome" />
-                                    <TableColumn fx:id="fabricanteColumn" prefWidth="161.0" text="Fabricante" />
-                                    <TableColumn fx:id="origemColumn" minWidth="0.0" prefWidth="204.0" text="Origem" />
-                                    <TableColumn fx:id="precoColumn" prefWidth="166.0" text="Preco" />
-                                    <TableColumn fx:id="quantidadeColumn" prefWidth="116.0" text="Quantidade Stock" />
+                                    <TableColumn fx:id="dataColumn" prefWidth="137.0" text="Data" />
+                                    <TableColumn fx:id="validadeColumn" prefWidth="161.0" text="Validade" />
+                                    <TableColumn fx:id="quantidadeColumn" minWidth="0.0" prefWidth="73.0" text="Quantidade" />
+                                    <TableColumn fx:id="codigoMedicamentoColumn" prefWidth="145.0" text="Tipo" />
+                                    <TableColumn fx:id="nomeColumn" prefWidth="116.0" text="Nome Med." />
+                                    <TableColumn fx:id="codFornecedorColumn" prefWidth="75.0" text="Fornecedor" />
+                                    <TableColumn fx:id="registadorColumn" prefWidth="75.0" text="Registrador" />
                                  </columns>
                               </TableView>
                            </children>
@@ -66,28 +68,28 @@
                   </Label>
                   <VBox alignment="CENTER" layoutX="717.0" layoutY="75.0" prefHeight="361.0" prefWidth="235.0" spacing="25.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" layoutX="1082.0" layoutY="46.0" spacing="5.0">
+                        <HBox alignment="CENTER_LEFT" layoutX="1082.0" layoutY="46.0" spacing="5.0" visible="false">
                            <children>
-                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="50.0" text="Nome:" />
-                              <TextField fx:id="nomeTf" layoutX="1145.0" layoutY="46.0">
+                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="77.0" text="Nome:" />
+                              <TextField fx:id="nomeTf" layoutX="1145.0" layoutY="46.0" promptText="Nome do medicamento">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin></TextField>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" layoutX="1082.0" layoutY="88.0" prefHeight="25.0" prefWidth="216.0" spacing="2.0">
+                        <HBox alignment="CENTER_LEFT" layoutX="1082.0" layoutY="88.0" prefHeight="25.0" prefWidth="216.0" spacing="2.0" visible="false">
                            <children>
-                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="58.0" text="Codigo:" />
-                              <TextField fx:id="codigoTf" layoutX="1145.0" layoutY="46.0" prefHeight="25.0" prefWidth="149.0">
+                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="85.0" text="Codigo:" />
+                              <TextField fx:id="codigoTf" layoutX="1145.0" layoutY="46.0" prefHeight="25.0" prefWidth="149.0" promptText="Código do medicamento">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin></TextField>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="107.0" prefHeight="25.0" prefWidth="216.0" spacing="2.0">
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="107.0" prefHeight="25.0" prefWidth="216.0" spacing="2.0" visible="false">
                            <children>
-                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="58.0" text="País:" />
-                              <TextField fx:id="paisTf" layoutX="1145.0" layoutY="46.0" prefHeight="25.0" prefWidth="149.0">
+                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="87.0" text="Movimento:" />
+                              <TextField fx:id="movimentoTf" layoutX="1145.0" layoutY="46.0" prefHeight="25.0" prefWidth="149.0" promptText="Código do movimento">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -102,9 +104,8 @@
                   </VBox>
                   <HBox layoutX="33.0" layoutY="471.0" spacing="7.0" style="-fx-padding: 5; -fx-border-insets: 5; -fx-background-insets: 5;">
                      <children>
-                        <JFXButton fx:id="adicionarMedicamento" layoutX="34.0" layoutY="472.0" onAction="#addMedicamento" style="-fx-background-color: #32CD32;" text="Adicionar medicamento" textFill="WHITE" />
-                        <JFXButton fx:id="modificarMedicamento" layoutX="184.0" layoutY="472.0" onAction="#modifyMedicamento" style="-fx-background-color: #32CD32;" text="Modificar medicamento" textFill="WHITE" />
-                        <JFXButton fx:id="removerMedicamento" layoutX="306.0" layoutY="472.0" onAction="#removerMedicamento" style="-fx-background-color: #32CD32;" text="Remover medicamento" textFill="WHITE" />
+                        <JFXButton fx:id="actualizarStock" layoutX="34.0" layoutY="472.0" onAction="#addMedicamento" style="-fx-background-color: #32CD32;" text="Actualizar Stock" textFill="WHITE" />
+                        <JFXButton fx:id="removerMovimento" layoutX="306.0" layoutY="472.0" style="-fx-background-color: #32CD32;" text="Remover Movimento" textFill="WHITE" />
                      </children>
                   </HBox>
                   <Label layoutX="505.0" layoutY="475.0" text="Total de itens na procura:">

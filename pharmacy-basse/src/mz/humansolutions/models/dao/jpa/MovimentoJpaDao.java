@@ -1,6 +1,16 @@
 package mz.humansolutions.models.dao.jpa;
-import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.dao.MovimentoDao;
 import mz.humansolutions.utils.JPAUtil;
@@ -15,6 +25,35 @@ public class MovimentoJpaDao implements MovimentoDao{
 		entityManager.persist(movimento);
 		entityManager.getTransaction().commit();
 		
+	}
+
+	@Override
+	public List<Movimento> findMedicamento(Long id,Boolean active) {
+		entityManager.getTransaction().begin();
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Movimento> query = criteriaBuilder.createQuery(Movimento.class);
+
+		Root<Movimento> root = query.from(Movimento.class);
+		List<Predicate> predicates = new ArrayList<Predicate>();
+
+		Path<Long> idPath = root.<Long>get("id");
+		Path<Boolean> activePath = root.<Boolean>get("active");
+		if (id != null) {
+			System.out.println("ID: " + id);
+			Predicate predicate = criteriaBuilder.equal(idPath, id);
+			predicates.add(predicate);
+		}
+
+		if (active != null) {
+			Predicate predicate = criteriaBuilder.equal(activePath, active);
+			predicates.add(predicate);
+		}
+		
+		query.where(predicates.toArray(new Predicate[predicates.size()]));
+
+		TypedQuery<Movimento> typedQuery = entityManager.createQuery(query);
+		entityManager.getTransaction().commit();
+		return typedQuery.getResultList();
 	}
 
 }

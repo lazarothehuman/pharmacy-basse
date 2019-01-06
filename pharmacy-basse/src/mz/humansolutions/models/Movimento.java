@@ -48,6 +48,9 @@ public class Movimento {
 	@Column(name = "idCliente",  unique = false)
 	private int idCliente;
 
+	@Column(nullable = false, columnDefinition = "bit")
+	private Boolean active = true;
+	
 	public Long getId() {
 		return id;
 	}
@@ -120,5 +123,15 @@ public class Movimento {
 		this.idCliente = idCliente;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	
+	
 
 }
