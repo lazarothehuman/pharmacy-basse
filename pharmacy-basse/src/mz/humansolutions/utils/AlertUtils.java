@@ -56,5 +56,16 @@ public class AlertUtils {
 		alert.showAndWait();
 		
 	}
+	
+	public static void displayInavailabity() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Função temporiaramente indisponível");
+		alert.setContentText("Função temporiaramente indisponível, mas em breve ficará disponível");
+		alert.setHeaderText(null);
+		alert.showAndWait();
+		
+	}
+	
+	
 
 }

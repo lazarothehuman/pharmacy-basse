@@ -290,7 +290,7 @@ public class FrameManager {
 
 	public void modifyCliente(Cliente cliente, User user) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public AnchorPane searchMovimento(User user) {
@@ -304,6 +304,10 @@ public class FrameManager {
 				AlertUtils.alertSemPrivelegio();
 		}
 		return content;
+	}
+
+	public AnchorPane goToMain() {
+		return null;
 	}
 
 }

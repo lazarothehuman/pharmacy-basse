@@ -27,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
@@ -57,7 +58,7 @@ public class ViewMedicamentoController implements Initializable {
 
 	@FXML
 	TextField nomeTf = new TextField();
-	
+
 	@FXML
 	TextField paisTf = new TextField();
 
@@ -84,7 +85,7 @@ public class ViewMedicamentoController implements Initializable {
 
 	@FXML
 	TableColumn<Medicamento, Integer> quantidadeColumn;
-	
+
 	@FXML
 	TableColumn<Medicamento, Long> codigoColumn;
 
@@ -130,7 +131,7 @@ public class ViewMedicamentoController implements Initializable {
 	public void pesquisar() {
 		Long id = null;
 		String nome = null;
-		String paisOrigem=null;
+		String paisOrigem = null;
 		if (!codigoTf.getText().trim().isEmpty())
 			id = Long.parseLong(codigoTf.getText());
 		if (!nomeTf.getText().trim().isEmpty())
@@ -138,7 +139,8 @@ public class ViewMedicamentoController implements Initializable {
 		if (!paisTf.getText().trim().isEmpty())
 			paisOrigem = paisTf.getText();
 		Boolean activee = Boolean.valueOf(!active.isSelected());
-		List<Medicamento> medicamentos = dataManager.findMedicamento(id, null, activee, nome, null, null, paisOrigem, null);
+		List<Medicamento> medicamentos = dataManager.findMedicamento(id, null, activee, nome, null, null, paisOrigem,
+				null);
 		System.out.println("size da cena: " + medicamentos.size());
 		if (medicamentos != null) {
 			tableMedicamento.setItems(FXCollections.observableArrayList(medicamentos));
@@ -150,12 +152,14 @@ public class ViewMedicamentoController implements Initializable {
 	}
 
 	public void addMedicamento() {// fazer controle de permissoes
-		User user = dataManager.findCurrentUser();
-		if (user != null) {
-			frameManager.addMedicamento(user);
-			pesquisar();
-		} else {
-			AlertUtils.alertSemPrivelegio();
+		AlertUtils.displayInavailabity();
+		AnchorPane content = frameManager.addMedicamento(dataManager.findCurrentUser());
+		if (content != null) {
+			MainController2 controller = new MainController2();
+			controller.setContentFromOtherView(content);
+
+			frameManager.mainController2();
+
 		}
 	}
 
@@ -192,7 +196,7 @@ public class ViewMedicamentoController implements Initializable {
 					if (result.get() == ButtonType.OK) {
 						selectedMedicamento.setActive(false);
 						dataManager.updateMedicamento(selectedMedicamento);
-						if(!active.isSelected())
+						if (!active.isSelected())
 							listMedicamentos.remove(selectedMedicamento);
 						refreshItems();
 					}

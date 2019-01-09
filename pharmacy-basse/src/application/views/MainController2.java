@@ -35,23 +35,29 @@ public class MainController2 implements Initializable {
 
 	@FXML
 	JFXButton registar;
-	
+
 	@FXML
 	JFXButton visualizarMedicamento;
-	
+
 	@FXML
 	JFXButton visualizarMovimentos;
-	
+
 	@FXML
 	VBox seccaoSistema;
-	
+
+	AnchorPane content;
+
 	FrameManager frameManager = new FrameManager();
 	DataManagerImp dataManager = new DataManagerImp();
 	User user;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// por content como venda
 		setContextMenu();
+		if (content != null) {
+			setContent(content);
+		}
 	}
 
 	public void setContextMenu() {
@@ -131,7 +137,7 @@ public class MainController2 implements Initializable {
 		AnchorPane content = frameManager.searchMedicamento(user);
 		setContent(content);
 	}
-	
+
 	public void viewMovimento() {
 		AnchorPane content = frameManager.searchMovimento(user);
 		setContent(content);
@@ -151,6 +157,7 @@ public class MainController2 implements Initializable {
 		AnchorPane content = frameManager.addCliente(user);
 		setContent(content);
 	}
+
 	public void viewCliente() {
 		AnchorPane content = frameManager.searchCliente(user);
 		setContent(content);
@@ -170,11 +177,11 @@ public class MainController2 implements Initializable {
 			ContentPane.getChildren().setAll(content);
 		}
 	}
-	
+
 	private void visibilidadeMenus() {
-		Profile profile=user.getProfile();
-		if(profile.getId()==5) {
-			//seccaoSistema.setDisable(true);
+		Profile profile = user.getProfile();
+		if (profile.getId() == 5) {
+			// seccaoSistema.setDisable(true);
 			registar.setDisable(true);
 			settingsButton.setDisable(true);
 			clienteBtn.setDisable(true);
@@ -182,6 +189,18 @@ public class MainController2 implements Initializable {
 			visualizarMedicamento.setDisable(true);
 			visualizarMovimentos.setDisable(true);
 		}
-			
-		}
+
 	}
+
+	public void refreshContent() {
+		if (content != null)
+			setContent(content);
+
+	}
+
+	public void setContentFromOtherView(AnchorPane content) {
+		if (content != null)
+			this.content = content;
+
+	}
+}
