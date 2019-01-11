@@ -12,6 +12,7 @@
 		<class>mz.humansolutions.models.Transaccao</class>
 		<class>mz.humansolutions.utils.SessionHelper</class>
 		<class>mz.humansolutions.models.Cliente</class>
+		<class>mz.humansolutions.models.Fornecedor</class>
 		<properties>
 			<!-- Propriedades JDBC -->
 			<property name="javax.persistence.jdbc.driver"

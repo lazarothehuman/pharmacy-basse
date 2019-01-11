@@ -136,8 +136,8 @@ public class AddMovimentoController implements Initializable{
 			dataManager.updateMedicamento(medicamentoAux);
 			
 			AlertUtils.alertSucesso("Operação concluída com sucesso");
-			Stage stage = (Stage) comboFornecedor.getScene().getWindow();
-			stage.close();
+			/*Stage stage = (Stage) comboFornecedor.getScene().getWindow();
+			stage.close();*/
 			
 		}
 	}

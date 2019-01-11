@@ -14,6 +14,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import mz.humansolutions.managers.DataManagerImp;
 import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.User;
@@ -166,6 +167,17 @@ public class MainController2 implements Initializable {
 	public void addMedicamento() {
 		AnchorPane content = frameManager.addMedicamento(user);
 		setContent(content);
+	}
+	
+	public void addFornecedor() {
+		AnchorPane content = frameManager.addFornecedor(user);
+		setContent(content);
+	}
+	
+	public void logout() {
+		frameManager.login();
+		Stage stage = (Stage) ContentPane.getScene().getWindow();
+		stage.close();
 	}
 
 	public void setContent(AnchorPane content) {

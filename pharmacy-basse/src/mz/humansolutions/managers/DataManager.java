@@ -6,6 +6,7 @@ import java.security.GeneralSecurityException;
 import java.util.Date;
 import java.util.List;
 
+import mz.humansolutions.models.Fornecedor;
 import mz.humansolutions.models.Cliente;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
@@ -69,5 +70,10 @@ public interface DataManager {
 			Date selectedEndDate, Sexo sexo, Boolean activee);
 
 	public void updateCliente(Cliente cliente);
+
+	public List<Fornecedor> findFornecedor(Long id, String nome, String telefone, String email,
+			String endereco,Boolean active);
+
+	public void createFornecedor(Fornecedor fornecedor);
 
 }

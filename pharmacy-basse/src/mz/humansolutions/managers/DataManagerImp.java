@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import mz.humansolutions.models.Cliente;
+import mz.humansolutions.models.Fornecedor;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
@@ -14,6 +15,7 @@ import mz.humansolutions.models.Sexo;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
 import mz.humansolutions.models.dao.ClienteDao;
+import mz.humansolutions.models.dao.FornecedorDao;
 import mz.humansolutions.models.dao.MedicamentoDao;
 import mz.humansolutions.models.dao.MovimentoDao;
 import mz.humansolutions.models.dao.ProfileDao;
@@ -21,6 +23,7 @@ import mz.humansolutions.models.dao.SessionHelperDao;
 import mz.humansolutions.models.dao.TransaccaoDao;
 import mz.humansolutions.models.dao.UserDao;
 import mz.humansolutions.models.dao.jpa.ClienteJpaDao;
+import mz.humansolutions.models.dao.jpa.FornecedorJpaDao;
 import mz.humansolutions.models.dao.jpa.MedicamentoJpaDao;
 import mz.humansolutions.models.dao.jpa.MovimentoJpaDao;
 import mz.humansolutions.models.dao.jpa.ProfileJpaDao;
@@ -38,6 +41,7 @@ public class DataManagerImp implements DataManager {
 	MedicamentoDao medicamentoDao = new MedicamentoJpaDao();
 	MovimentoDao movimentoDao = new MovimentoJpaDao();
 	ClienteDao clienteDao = new ClienteJpaDao();
+	FornecedorDao fornecedorDao=new FornecedorJpaDao();
 
 	@Override
 	public void createUser(User user) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -206,6 +210,16 @@ public class DataManagerImp implements DataManager {
 	@Override
 	public List<Movimento> findMovimento(Long id,Boolean active) {
 		return movimentoDao.findMedicamento(id,active);
+	}
+
+	@Override
+	public List<Fornecedor> findFornecedor(Long id, String nome, String telefone, String email, String endereco,Boolean active) {
+		return fornecedorDao.find(id,nome,telefone,email,endereco,active);
+	}
+
+	@Override
+	public void createFornecedor(Fornecedor fornecedor) {
+		fornecedorDao.create(fornecedor);	
 	}
 
 }

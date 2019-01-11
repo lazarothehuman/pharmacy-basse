@@ -141,6 +141,15 @@
       								</ImageView>
       							</graphic>
       						</JFXButton>
+                        <JFXButton fx:id="fornecedorBtn" alignment="TOP_LEFT" onAction="#addFornecedor" prefHeight="39.0" prefWidth="266.0" style="-fx-background-color: #228B22;" styleClass="buttonMenu" stylesheets="estilos.css" text="Fornecedores" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="user.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
       						<JFXButton alignment="TOP_LEFT" prefHeight="39.0" prefWidth="266.0" style="-fx-background-color: #228B22;" styleClass="buttonMenu" stylesheets="estilos.css" text="Notificar" textFill="WHITE">
       							<graphic>
       								<ImageView fitHeight="22.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -204,7 +213,7 @@
 						</JFXButton>
 					</children>
 				</Pane>
-				<ImageView fitHeight="27.0" fitWidth="33.0" layoutX="23.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true">
+				<ImageView fitHeight="27.0" fitWidth="33.0" layoutX="23.0" layoutY="638.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="logout.png" />
 					</image>
