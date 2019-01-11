@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.forms.AddFornecedorController">
+   <children>
+      <Label alignment="CENTER" prefHeight="106.0" prefWidth="700.0" style="-fx-background-color: #006400;" text="ADICIONAR FORNECEDOR" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <VBox layoutX="48.0" layoutY="196.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="370.0" prefWidth="1027.0" spacing="65.0">
+         <children>
+            <HBox prefHeight="99.0" prefWidth="1059.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="754.0" spacing="15.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="298.0" spacing="15.0">
+                           <children>
+                              <Label fx:id="nome_lbl" text="Nome:" textFill="RED" />
+                              <JFXTextField fx:id="nameTF" focusColor="DARKGREEN" layoutX="45.0" layoutY="161.0" maxWidth="231.0" minWidth="180.0" prefHeight="52.0" prefWidth="215.0" promptText="Insira o nome" unFocusColor="DARKGREEN">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></JFXTextField>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="309.0" spacing="15.0">
+                           <children>
+                              <Label text="Telefone:" />
+                              <JFXTextField fx:id="phoneTF" focusColor="DARKGREEN" layoutX="51.0" layoutY="276.0" maxHeight="-Infinity" maxWidth="210.0" minWidth="174.0" prefHeight="36.0" prefWidth="210.0" promptText="Insira o telefone" unFocusColor="DARKGREEN">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="48.0" prefWidth="311.0" spacing="15.0">
+                     <children>
+                        <Label text="Email:" />
+                        <JFXTextField fx:id="emailTF" focusColor="DARKGREEN" layoutX="51.0" layoutY="213.0" maxWidth="231.0" minWidth="174.0" prefHeight="36.0" prefWidth="231.0" promptText="Insira o e-mail" unFocusColor="DARKGREEN">
+                           <font>
+                              <Font size="14.0" />
+                           </font></JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="106.0" prefWidth="664.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="300.0" spacing="15.0">
+                           <children>
+                              <Label text="Morada" />
+                              <JFXTextField fx:id="moradaTf" focusColor="DARKGREEN" layoutX="51.0" layoutY="213.0" maxWidth="231.0" minWidth="174.0" prefHeight="36.0" prefWidth="219.0" promptText="Insira a morada" unFocusColor="DARKGREEN">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label layoutX="53.0" layoutY="122.0" prefHeight="66.0" prefWidth="1027.0" text="Dados do fornecedor" textFill="DARKGREEN">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Line endX="1050.0" layoutX="20.0" layoutY="184.0" startX="35.0" stroke="#c2c2c2" />
+      <JFXButton layoutX="366.0" layoutY="615.0" onAction="#add" prefHeight="47.0" prefWidth="149.0" style="-fx-background-color: #006400;" text="Adicionar" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="533.0" layoutY="615.0" prefHeight="47.0" prefWidth="149.0" style="-fx-background-color: #ffffff; -fx-border-color: #006400; -fx-border-width: 2;" text="Cancelar" textFill="DARKGREEN">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
