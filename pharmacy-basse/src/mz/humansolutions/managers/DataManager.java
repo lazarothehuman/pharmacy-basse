@@ -58,7 +58,7 @@ public interface DataManager {
 	public List<Medicamento> findMedicamento(Long id, String fabricante, Boolean active, String nome,
 			Double precoUnitario, Integer quadntidadeStock, String paisOrigem, String codigo);
 
-	public List<Movimento> findMovimento(Long id_medicamento,Boolean active);
+	public List<Movimento> findMovimento(Long id,Boolean active);
 	
 	void updateMedicamento(Medicamento selectedMedicamento);
 
@@ -75,5 +75,9 @@ public interface DataManager {
 			String endereco,Boolean active);
 
 	public void createFornecedor(Fornecedor fornecedor);
+
+	public Medicamento findMedicamentoByCode(String codigo);
+
+	public Cliente findCliente(Long id);
 
 }

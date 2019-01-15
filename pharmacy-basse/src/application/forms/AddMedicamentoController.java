@@ -26,8 +26,6 @@ public class AddMedicamentoController implements Initializable {
 	@FXML
 	private ComboBox<String> comboFabricante;
 
-	ObservableList<String> list = FXCollections.observableArrayList("fabricante 1", "fabricante 2");
-
 	@FXML
 	private TextField precoTF = new TextField();
 
@@ -101,23 +99,16 @@ public class AddMedicamentoController implements Initializable {
 
 				if (duplicate == false) {
 					dataManager.createMedicamento(medicamento);
-
 					AlertUtils.alertSucesso("Medicamento adicionado com sucesso");
-					
-				} else {
-					alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText(null);
-					alert.setContentText("O medicamento ja existe!");
-					alert.setTitle("Erro");
-					alert.showAndWait();
-				}
+				} else 
+					AlertUtils.alertErroSelecionar("O medicamento ja existe!");
 			}
 		}
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		comboFabricante.setItems(list);
+		//comboFabricante.setItems(list);
 		precoTF.setText("0.0");
 	}
 

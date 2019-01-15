@@ -1,12 +1,9 @@
 package application.views;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -15,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -27,7 +23,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mz.humansolutions.managers.DataManager;
@@ -42,6 +37,9 @@ import mz.humansolutions.utils.FrameManager;
 public class ViewMovimentoController implements Initializable {
 
 	// put timer to refresh
+	
+	@FXML
+	AnchorPane ContentPane;
 
 	@FXML
 	Button pesquisar;
@@ -168,25 +166,7 @@ public class ViewMovimentoController implements Initializable {
 	}
 
 	public void pesquisar() {
-		Long medicamento,movimento = null;
-		String nome = null;
-		String paisOrigem=null;
-		if (!codigoTf.getText().trim().isEmpty())
-			medicamento = Long.parseLong(codigoTf.getText());
-		if (!nomeTf.getText().trim().isEmpty())
-			nome = nomeTf.getText();
-		if (!movimentoTf.getText().trim().isEmpty())
-			movimento = Long.parseLong(movimentoTf.getText());
-		Boolean activee = Boolean.valueOf(!active.isSelected());
-		List<Movimento> movimentos = dataManager.findMovimento(movimento,activee);
-		System.out.println("size da cena: " + movimentos.size());
-		if (movimentos != null && tableMovimento!=null) {
-			tableMovimento.setItems(FXCollections.observableArrayList(movimentos));
-			lblTotal.setText(movimentos.size() + "");
-		} else {
-			AlertUtils.pesquisaVazia();
-			tableMovimento.setItems(null);
-		}
+		
 	}
 
 	public void addMedicamento() {// fazer controle de permissoes
@@ -194,15 +174,12 @@ public class ViewMovimentoController implements Initializable {
 		if (user != null) {
 			frameManager.addMedicamento(user);
 			pesquisar();
-		} else {
+		} else 
 			AlertUtils.alertSemPrivelegio();
-		}
+		
 	}
 
-	private void refreshItems() {
-		pesquisar();
 
-	}
 
 	public void goHome() {
 		Stage stage = (Stage) actualizarStock.getScene().getWindow();

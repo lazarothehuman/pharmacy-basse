@@ -12,6 +12,7 @@ import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.Sexo;
+import mz.humansolutions.models.Tipo;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
 import mz.humansolutions.models.dao.ClienteDao;
@@ -181,6 +182,11 @@ public class DataManagerImp implements DataManager {
 
 	public void createMovimento(Movimento movimento) {
 		if (movimento != null) {
+			if(movimento.getTipo().equals(Tipo.ENTRADA)) 
+				movimento.getMedicamento().addToStock(movimento.getQuantidade());
+			else 
+				movimento.getMedicamento().removeFromStock(movimento.getQuantidade());
+			
 			movimentoDao.create(movimento);
 		}
 
@@ -209,7 +215,7 @@ public class DataManagerImp implements DataManager {
 
 	@Override
 	public List<Movimento> findMovimento(Long id,Boolean active) {
-		return movimentoDao.findMedicamento(id,active);
+		return movimentoDao.findMovimento(id,active);
 	}
 
 	@Override
@@ -220,6 +226,19 @@ public class DataManagerImp implements DataManager {
 	@Override
 	public void createFornecedor(Fornecedor fornecedor) {
 		fornecedorDao.create(fornecedor);	
+	}
+
+	@Override
+	public Medicamento findMedicamentoByCode(String codigo) {
+		if (codigo != null) {
+			return medicamentoDao.findMedicamento(codigo);
+		}
+		return null;
+	}
+
+	@Override
+	public Cliente findCliente(Long id) {
+		return clienteDao.find(id);
 	}
 
 }

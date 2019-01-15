@@ -25,7 +25,6 @@ public class Fornecedor {
 	@Column(name="nome", nullable=false)
 	private String nome;
 	
-	
 	@Column(name="telefone")
 	private String telefone;
 	

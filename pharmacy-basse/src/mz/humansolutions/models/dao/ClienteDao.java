@@ -12,5 +12,6 @@ public interface ClienteDao {
 	void update(Cliente cliente);
 	List<Cliente> find(Long id, String nome, String email, String telefone, Date selectedStartDate,
 			Date selectedEndDate, Sexo sexo, Boolean activee);
+	Cliente find(Long id);
 
 }

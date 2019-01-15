@@ -107,4 +107,18 @@ public class MedicamentoJpaDao implements MedicamentoDao {
 		entityManager.merge(medicamento);
 		entityManager.getTransaction().commit();
 	}
+
+	@Override
+	public Medicamento findMedicamento(String codigo) {
+		entityManager.getTransaction().begin();
+		TypedQuery<Medicamento> query = entityManager
+				.createQuery("select medicamento from Medicamento medicamento " + " where medicamento.codigo = :codigo", Medicamento.class);
+		query.setParameter("codigo", codigo);
+		List<Medicamento> medicamentos = query.getResultList();
+		entityManager.getTransaction().commit();
+		if (medicamentos.isEmpty())
+			return null;
+		Medicamento medicamento = medicamentos.get(0);
+		return medicamento;
+	}
 }

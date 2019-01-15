@@ -45,7 +45,7 @@ public class Cliente {
 	@Column(name= "morada")
 	private String morada;
 	
-	@OneToMany
+	@OneToMany(mappedBy="cliente")
 	private List<Movimento> compras = new ArrayList<>();
 	
 	@Column(nullable = false, columnDefinition = "bit")

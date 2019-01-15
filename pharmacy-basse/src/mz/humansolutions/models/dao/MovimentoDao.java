@@ -10,4 +10,6 @@ public interface MovimentoDao {
 
 	List<Movimento> findMedicamento(Long id,Boolean active);
 
+	List<Movimento> findMovimento(Long id, Boolean active);
+
 }

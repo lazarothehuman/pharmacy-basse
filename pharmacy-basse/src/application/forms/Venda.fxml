@@ -56,7 +56,7 @@
                         </HBox>
                         <HBox prefHeight="60.0" prefWidth="331.0" spacing="15.0">
                            <children>
-                              <Label text="Preco unitario:" />
+                              <Label text="Preço unitário:" />
                               <TextField fx:id="precoTf" />
                            </children>
                            <VBox.margin>
@@ -99,7 +99,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <TextField fx:id="pesquisaTf" layoutX="869.0" layoutY="2.0" onKeyPressed="#enterKeyPressed" prefHeight="25.0" prefWidth="200.0" promptText="pesquisar" />
+                  <TextField fx:id="pesquisaTf" layoutX="869.0" layoutY="2.0" onKeyPressed="#enterKeyPressed" prefHeight="25.0" prefWidth="200.0" promptText="Pesquisar" />
                   <TableView fx:id="tabListItems" layoutX="869.0" layoutY="25.0" onMouseClicked="#listToFields" prefHeight="438.0" prefWidth="200.0">
                      <columns>
                         <TableColumn fx:id="medicamentosColumn" prefWidth="199.0" text="Medicamento" />
@@ -113,7 +113,7 @@
                            </columnResizePolicy>
                            <columns>
                               <TableColumn fx:id="nomeColumn" prefWidth="137.0" text="Nome" />
-                              <TableColumn fx:id="precoColumn" minWidth="0.0" prefWidth="204.0" text="Preco unitario" />
+                              <TableColumn fx:id="precoColumn" minWidth="0.0" prefWidth="204.0" text="Preço Unitário" />
                               <TableColumn fx:id="quantidadeColumn" prefWidth="116.0" text="Quantidade" />
                               <TableColumn fx:id="totalColumn" prefWidth="166.0" text="Total" />
                            </columns>

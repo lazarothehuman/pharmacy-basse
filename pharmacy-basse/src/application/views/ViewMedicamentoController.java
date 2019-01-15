@@ -40,6 +40,9 @@ import mz.humansolutions.utils.FrameManager;
 public class ViewMedicamentoController implements Initializable {
 
 	// put timer to refresh
+	
+	@FXML
+	AnchorPane ContentPane;
 
 	@FXML
 	Button pesquisar;
@@ -62,8 +65,7 @@ public class ViewMedicamentoController implements Initializable {
 	@FXML
 	TextField paisTf = new TextField();
 
-	@FXML
-	ComboBox<Profile> comboProfile;
+
 
 	@FXML
 	CheckBox active = new CheckBox();
@@ -90,41 +92,25 @@ public class ViewMedicamentoController implements Initializable {
 	TableColumn<Medicamento, Long> codigoColumn;
 
 	@FXML
-	Label lblUser = new Label();
-
-	@FXML
-	Label lblProfile = new Label();
-
-	@FXML
 	Label lblTotal = new Label();
 
 	DataManager dataManager = new DataManagerImp();
 
 	FrameManager frameManager = new FrameManager();
 
-	@FXML
-	Hyperlink home;
-
-	@FXML
-	Hyperlink about;
+	User user;
 
 	List<Medicamento> listMedicamentos = new ArrayList<Medicamento>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		List<Profile> profiles = dataManager.findProfiles(true);
-		User user = dataManager.findCurrentUser();
-		if (user != null) {
-			lblUser.setText(user.getName().toLowerCase());
-			lblProfile.setText(user.getProfile().getProfilename());
-		}
+		user = dataManager.findCurrentUser();
 		codigoColumn.setCellValueFactory(new PropertyValueFactory<Medicamento, Long>("id"));
 		nomeColumn.setCellValueFactory(new PropertyValueFactory<Medicamento, String>("nome"));
 		fabricanteColumn.setCellValueFactory(new PropertyValueFactory<Medicamento, String>("fabricante"));
 		origemColumn.setCellValueFactory(new PropertyValueFactory<Medicamento, String>("paisOrigem"));
 		precoColumn.setCellValueFactory(new PropertyValueFactory<Medicamento, Double>("precoUnitario"));
 		quantidadeColumn.setCellValueFactory(new PropertyValueFactory<Medicamento, Integer>("quantidadeStock"));
-		pesquisar();
 
 	}
 
@@ -141,8 +127,7 @@ public class ViewMedicamentoController implements Initializable {
 		Boolean activee = Boolean.valueOf(!active.isSelected());
 		List<Medicamento> medicamentos = dataManager.findMedicamento(id, null, activee, nome, null, null, paisOrigem,
 				null);
-		System.out.println("size da cena: " + medicamentos.size());
-		if (medicamentos != null) {
+		if (medicamentos != null ) {
 			tableMedicamento.setItems(FXCollections.observableArrayList(medicamentos));
 			lblTotal.setText(medicamentos.size() + "");
 		} else {
@@ -152,14 +137,17 @@ public class ViewMedicamentoController implements Initializable {
 	}
 
 	public void addMedicamento() {// fazer controle de permissoes
-		AlertUtils.displayInavailabity();
 		AnchorPane content = frameManager.addMedicamento(dataManager.findCurrentUser());
+		setContent(content);
+	}
+	
+	public void setContent(AnchorPane content) {
 		if (content != null) {
-			MainController2 controller = new MainController2();
-			controller.setContentFromOtherView(content);
-
-			frameManager.mainController2();
-
+			ContentPane.setTopAnchor(content, 0.0);
+			ContentPane.setLeftAnchor(content, 0.0);
+			ContentPane.setBottomAnchor(content, 0.0);
+			ContentPane.setRightAnchor(content, 0.0);
+			ContentPane.getChildren().setAll(content);
 		}
 	}
 

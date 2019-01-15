@@ -1,10 +1,12 @@
 package mz.humansolutions.models;
 
-import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,33 +22,30 @@ public class Movimento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "tipo", nullable = false, unique = false)
-	private String tipo;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo", nullable = false)
+	private Tipo tipo;
 
-	@Column(name = "data", nullable = false)
+	@Column(name = "dataRealizacao", nullable = false)
 	@Type(type = "date")
-	private Date data;
+	private Date dataRealizacao;
 
-	@Column(name = "data_validade", nullable = false)
-	@Type(type = "date")
-	private Date data_validade;
-
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(nullable = false)
 	private Medicamento medicamento;
 
+	//indica a quantidade que vai entrar ou sair
 	@Column(name = "quantidade", nullable = false, unique = false)
 	private int quantidade;
-
-	@Column(name = "id_fornecedor", nullable = false, unique = false)
-	private int id_fornecedor;
+	
+	//quando ocorre uma entrada,este dado recebe null
+	@ManyToOne
+	@JoinColumn(nullable=true)
+	private Cliente cliente;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private User registador;
-
-	@Column(name = "idCliente",  unique = false)
-	private int idCliente;
 
 	@Column(nullable = false, columnDefinition = "bit")
 	private Boolean active = true;
@@ -59,28 +58,20 @@ public class Movimento {
 		this.id = id;
 	}
 
-	public String getTipo() {
+	public Tipo getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
 
-	public Date getData() {
-		return data;
+	public Date getDataRealizacao() {
+		return dataRealizacao;
 	}
 
-	public void setData(Date localDate) {
-		this.data = localDate;
-	}
-
-	public Date getData_validade() {
-		return data_validade;
-	}
-
-	public void setData_validade(Date localDate) {
-		this.data_validade = localDate;
+	public void setDataRealizacao(Date localDate) {
+		this.dataRealizacao = localDate;
 	}
 
 	public Medicamento getMedicamento() {
@@ -99,14 +90,6 @@ public class Movimento {
 		this.quantidade = quantidade;
 	}
 
-	public int getId_fornecedor() {
-		return id_fornecedor;
-	}
-
-	public void setId_fornecedor(int id_fornecedor) {
-		this.id_fornecedor = id_fornecedor;
-	}
-
 	public User getRegistador() {
 		return registador;
 	}
@@ -115,12 +98,12 @@ public class Movimento {
 		this.registador = registador;
 	}
 
-	public int getIdCliente() {
-		return idCliente;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Boolean getActive() {
@@ -130,8 +113,4 @@ public class Movimento {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-
-	
-	
-
 }

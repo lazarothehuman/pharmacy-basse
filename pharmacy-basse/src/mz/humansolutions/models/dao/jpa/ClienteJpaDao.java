@@ -109,4 +109,19 @@ public class ClienteJpaDao implements ClienteDao {
 		return typedQuery.getResultList();
 	}
 
+
+	@Override
+	public Cliente find(Long id) {
+		entityManager.getTransaction().begin();
+		TypedQuery<Cliente> query = entityManager
+				.createQuery("select cliente from Cliente cliente " + " where cliente.id = :id", Cliente.class);
+		query.setParameter("id", id);
+		List<Cliente> clientes = query.getResultList();
+		entityManager.getTransaction().commit();
+		if (clientes.isEmpty())
+			return null;
+		Cliente cliente = clientes.get(0);
+		return cliente;
+	}
+
 }

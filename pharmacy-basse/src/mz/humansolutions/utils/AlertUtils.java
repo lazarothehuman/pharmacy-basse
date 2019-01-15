@@ -2,6 +2,7 @@ package mz.humansolutions.utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Control;
 
 public class AlertUtils {
 
@@ -63,6 +64,17 @@ public class AlertUtils {
 		alert.setContentText("Função temporiaramente indisponível, mas em breve ficará disponível");
 		alert.setHeaderText(null);
 		alert.showAndWait();
+		
+	}
+
+	public static void alertErro(String context, String title, Control component) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(title);
+		alert.setContentText(context);
+		alert.setHeaderText(null);
+		alert.showAndWait();
+		component.setStyle("-fx-border-color:#ff0000;");
+		component.requestFocus();
 		
 	}
 	
