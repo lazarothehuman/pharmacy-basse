@@ -12,4 +12,6 @@ public interface MovimentoDao {
 
 	List<Movimento> findMovimento(Long id, Boolean active);
 
+	//List<Movimento> findMovimento2(Long id, Boolean active);
+
 }

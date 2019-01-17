@@ -27,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
+import mz.humansolutions.models.Fornecedor;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
@@ -78,7 +79,7 @@ public class ViewMovimentoController implements Initializable {
 	TableColumn<Movimento, Date> dataColumn;
 
 	@FXML
-	TableColumn<Movimento, Date> validadeColumn;
+	TableColumn<Movimento, String> validadeColumn;
 
 
 	@FXML
@@ -88,10 +89,10 @@ public class ViewMovimentoController implements Initializable {
 	TableColumn<Movimento, Long> codigoColumn;
 	
 	@FXML
-	TableColumn<Movimento, String> codigoMedicamentoColumn;
+	TableColumn<Movimento, String> tipoColumn;
 
 	@FXML
-	TableColumn<Movimento, Integer> codFornecedorColumn;
+	TableColumn<Movimento, String> fornecedorColumn;
 	
 	@FXML
 	TableColumn<Movimento, String> registadorColumn;
@@ -115,12 +116,14 @@ public class ViewMovimentoController implements Initializable {
 	@FXML
 	Hyperlink about;
 
-	List<Medicamento> listMedicamentos = new ArrayList<Medicamento>();
+	List<Movimento> listMovimentos = new ArrayList<Movimento>();
 
 	
-	//PropertyValueFactory<Movimento, String> cod_medicamentoFactory=new PropertyValueFactory("medicamento");
 	PropertyValueFactory<Movimento, String> nome_medicamentoFactory=new PropertyValueFactory("medicamento");
 	PropertyValueFactory<Movimento, String> registadorFactory=new PropertyValueFactory("registador");
+	PropertyValueFactory<Movimento, String> prazoFactory=new PropertyValueFactory("medicamento");
+	PropertyValueFactory<Movimento, String> fornecedorFactory=new PropertyValueFactory("medicamento");
+	
 	User user;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -131,27 +134,28 @@ public class ViewMovimentoController implements Initializable {
 			lblProfile.setText(user.getProfile().getProfilename());
 		}
 		codigoColumn.setCellValueFactory(new PropertyValueFactory<Movimento, Long>("id"));
-		codFornecedorColumn.setCellValueFactory(new PropertyValueFactory<Movimento, Integer>("id_fornecedor"));
-		codigoMedicamentoColumn.setCellValueFactory(new PropertyValueFactory<Movimento, String>("tipo"));
-		dataColumn.setCellValueFactory(new PropertyValueFactory<Movimento, Date>("data"));
-		validadeColumn.setCellValueFactory(new PropertyValueFactory<Movimento, Date>("data_validade"));
+		dataColumn.setCellValueFactory(new PropertyValueFactory<Movimento, Date>("dataRealizacao"));
 		quantidadeColumn.setCellValueFactory(new PropertyValueFactory<Medicamento, Integer>("quantidade"));
+		tipoColumn.setCellValueFactory(new PropertyValueFactory<Movimento, String>("tipo"));
 		
-		//codigoMedicamentoColumn.setCellValueFactory(cod_medicamentoFactory);
 		nomeColumn.setCellValueFactory(nome_medicamentoFactory);
-		
-		/*codigoMedicamentoColumn.setCellValueFactory(mov -> {
-			Movimento movimentoAux=mov.getValue();
-			Medicamento medicamento =movimentoAux.getMedicamento();
-			
-			return new SimpleStringProperty(medicamento.getId()+"");
-		});*/
+		fornecedorColumn.setCellValueFactory(fornecedorFactory);
+		registadorColumn.setCellValueFactory(registadorFactory);
+		validadeColumn.setCellValueFactory(prazoFactory);
 		
 		nomeColumn.setCellValueFactory(mov -> {
 			Movimento movimentoAux=mov.getValue();
 			Medicamento medicamento =movimentoAux.getMedicamento();
 			
 			return new SimpleStringProperty(medicamento.getNome()+"");
+		});
+		
+		fornecedorColumn.setCellValueFactory(mov -> {
+			Movimento movimentoAux=mov.getValue();
+			Medicamento medicamento =movimentoAux.getMedicamento();
+			Fornecedor fornecedor=medicamento.getFornecedor();
+			
+			return new SimpleStringProperty(fornecedor.getNome()+"");
 		});
 		
 		registadorColumn.setCellValueFactory(mov -> {
@@ -161,12 +165,21 @@ public class ViewMovimentoController implements Initializable {
 			return new SimpleStringProperty(usuario.getName()+"");
 		});
 		
+		validadeColumn.setCellValueFactory(mov -> {
+			Movimento movimentoAux=mov.getValue();
+			Medicamento medicamento =movimentoAux.getMedicamento();
+			
+			return new SimpleStringProperty(medicamento.getPrazo()+"");
+		});
+		
 		pesquisar();
 
 	}
 
 	public void pesquisar() {
-		
+		listMovimentos=dataManager.findMovimento(null, true);
+		if(listMovimentos!=null)
+		tableMovimento.setItems(FXCollections.observableArrayList(listMovimentos));
 	}
 
 	public void addMedicamento() {// fazer controle de permissoes

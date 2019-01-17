@@ -67,7 +67,10 @@ public class LoginController implements Initializable {
 				}
 				if (loginOk) {
 					dataManager.setSelectedUser(user);
-					frameManagers.mainController();
+					if(user.getProfile().getProfilename().equalsIgnoreCase("caixa"))
+						frameManagers.caixaMainController();
+					else
+						frameManagers.mainController();
 					Stage stage = (Stage) aceder.getScene().getWindow();
 					stage.close();
 				}

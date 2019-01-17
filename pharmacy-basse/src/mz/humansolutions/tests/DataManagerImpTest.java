@@ -79,8 +79,8 @@ public class DataManagerImpTest {
 
 	@Test
 	public void testCreateTransactionProfile() {// failed
-		Profile profile = dataManager.findProfile(1l);
-		Transaccao transaccao = dataManager.findTransaccao(207l);
+		Profile profile = dataManager.findProfile(5l);
+		Transaccao transaccao = dataManager.findTransaccao(203l);
 		profile.getTransaccoes().add(transaccao);
 		transaccao.addProfile(profile);
 		dataManager.updateProfile(profile);

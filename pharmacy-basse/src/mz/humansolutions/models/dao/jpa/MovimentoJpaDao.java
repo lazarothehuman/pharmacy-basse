@@ -28,7 +28,7 @@ public class MovimentoJpaDao implements MovimentoDao {
 	}
 
 	@Override
-	public List<Movimento> findMedicamento(Long id, Boolean active) {
+	public List<Movimento> findMovimento(Long id, Boolean active) {
 		entityManager.getTransaction().begin();
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Movimento> query = criteriaBuilder.createQuery(Movimento.class);
@@ -55,7 +55,7 @@ public class MovimentoJpaDao implements MovimentoDao {
 		return typedQuery.getResultList();
 	}
 
-	@Override
+	/*@Override
 	public List<Movimento> findMovimento(Long id, Boolean active) {
 		entityManager.getTransaction().begin();
 		TypedQuery<Movimento> query = entityManager.createQuery(
@@ -67,6 +67,12 @@ public class MovimentoJpaDao implements MovimentoDao {
 		if (movimentos.isEmpty())
 			return null;
 		return movimentos;
+	}*/
+
+	@Override
+	public List<Movimento> findMedicamento(Long id, Boolean active) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

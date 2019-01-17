@@ -48,6 +48,30 @@ public class FrameManager {
 		}
 
 	}
+	
+	public void caixaMainController() {
+		Stage primaryStage = new Stage();
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/application/views/CaixaMain.fxml"));
+			loader.load();
+			Parent root = loader.getRoot();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Farmacia Baddam");
+			primaryStage.getIcons().add(new Image("pharmacy.png"));
+			primaryStage.show();
+			primaryStage.setResizable(false);
+			primaryStage.setOnCloseRequest(e -> {
+				Platform.exit();
+				System.exit(0);
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	public void login() {
 		Stage primaryStage = new Stage();
