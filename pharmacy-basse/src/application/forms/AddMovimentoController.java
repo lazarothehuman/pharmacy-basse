@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -98,9 +97,9 @@ public class AddMovimentoController implements Initializable {
 
 				Movimento movimento = new Movimento();
 				movimento.setTipo(Tipo.ENTRADA);
-				movimento.setMedicamento(selectedMedicamento);
+				movimento.addMedicamento(selectedMedicamento);
 				movimento.setDataRealizacao(dataNow);
-				movimento.setQuantidade(quantidade);
+				//movimento.setQuantidade(quantidade);
 				movimento.setRegistador(dataManager.findCurrentUser());
 				selectedMedicamento.addMovimento(movimento);
 				selectedMedicamento.addToStock(quantidade);

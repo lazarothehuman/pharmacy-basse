@@ -2,6 +2,7 @@ package mz.humansolutions.tests;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
 import mz.humansolutions.models.Cliente;
+import mz.humansolutions.models.Fornecedor;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
@@ -126,43 +128,67 @@ public class DataManagerImpTest {
 		Assert.assertNotNull(cliente);
 	}
 	
-	@Test
-	public void testCreateVenda() {//works but needs to validate se tem stock para fazer o move
-		Medicamento medicamento = dataManager.findMedicamentoByCode("1231314");
-		Cliente cliente = dataManager.findCliente(1l);
-		User registador = dataManager.findUser(1l);
-		Movimento venda = new Movimento();
-		venda.setDataRealizacao(new Date());
-		venda.setQuantidade(5);
-		venda.setTipo(Tipo.SAIDA);
-		venda.setMedicamento(medicamento);
-		venda.setCliente(cliente);
-		venda.setRegistador(registador);
-		dataManager.createMovimento(venda);
-		System.out.println(medicamento.getMovimentos().size());
-		for (Movimento moves : medicamento.getMovimentos()) 
-			System.out.println(moves.getTipo());
-		
-		Assert.assertNotNull(venda.getId());
-		
-	}
 	
 	@Test
 	public void testCreateEntrada() {//works
+		List<Medicamento> medicamentos = new ArrayList<>();
 		Medicamento medicamento = dataManager.findMedicamentoByCode("1231314");
+		medicamentos.add(medicamento);
 		Cliente cliente = dataManager.findCliente(1l);
 		User registador = dataManager.findUser(1l);
 		Movimento entrada = new Movimento();
 		entrada.setDataRealizacao(new Date());
-		entrada.setQuantidade(4);
-		entrada.setTipo(Tipo.SAIDA);
-		entrada.setMedicamento(medicamento);
+		entrada.setTipo(Tipo.ENTRADA);
+		entrada.setMedicamentos(medicamentos);
 		entrada.setCliente(cliente);
 		entrada.setRegistador(registador);
 		dataManager.createMovimento(entrada);
 		System.out.println(medicamento.getQuantidadeStock());
 		Assert.assertNotNull(entrada.getId());
 		
+	}
+	
+	@Test
+	public void testCreateMedicamento() {//works
+		Fornecedor fornecedor = new Fornecedor();
+		fornecedor.setNome("Sheridan");
+		Medicamento medicamento = new Medicamento();
+		medicamento.setNome("Bomba de Asma");
+		medicamento.setCodigo("070797");
+		medicamento.setPaisOrigem("India");
+		medicamento.setFabricante("Medimoc");
+		medicamento.setPrazo(new Date());
+		medicamento.setPrecoUnitario(2000d);
+		medicamento.setQuantidadeStock(0);
+		medicamento.setFornecedor(fornecedor);
+		fornecedor.addMedicamento(medicamento);
+		dataManager.createMedicamento(medicamento);
+		Assert.assertNotNull(medicamento);
+		Assert.assertNotNull(fornecedor);
+		
+	}
+	
+	@Test 
+	public void testCreateVenda() {
+		List<Medicamento> medicamentos = dataManager.findMedicamento(null, null, null, null, null, null, null, null);
+		Movimento venda = new Movimento();
+		venda.setDataRealizacao(new Date());
+		Cliente cliente = dataManager.findCliente(1l);
+		User registador = dataManager.findUser(1l);
+		venda.setCliente(cliente);
+		venda.setRegistador(registador);
+		venda.setTipo(Tipo.SAIDA);
+		for (Medicamento medicamento : medicamentos) 
+			medicamento.removeFromStock(0);//e a quantidade a ser retirada
+		venda.setMedicamentos(medicamentos);
+		
+	}
+	
+	@Test
+	public void testFindMovimentoMultipleParameters() {
+		List<Movimento> movimentos = dataManager.findMovimento(null, null, null,  null, null, null);
+		Assert.assertNotNull(movimentos);
+		Assert.assertEquals(5, movimentos.size());
 	}
 
 

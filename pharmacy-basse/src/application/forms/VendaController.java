@@ -177,9 +177,9 @@ public class VendaController implements Initializable {
 
 			movimento = new Movimento();
 			movimento.setTipo(Tipo.SAIDA);
-			movimento.setMedicamento(med.getMedicamento());
+			med.getMedicamento().addToStock(med.getQuantidade());
+			movimento.addMedicamento(med.getMedicamento());
 			movimento.setDataRealizacao(new Date());
-			movimento.setQuantidade(med.getQuantidade());
 			// movimento.setCliente(1); sair uma janela para adicionar cliente antes do for
 			movimento.setRegistador(dataManager.findCurrentUser());
 			medicamento = med.getMedicamento();

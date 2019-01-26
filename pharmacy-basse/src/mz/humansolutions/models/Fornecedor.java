@@ -1,19 +1,14 @@
 package mz.humansolutions.models;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 public class Fornecedor {
@@ -87,7 +82,7 @@ public class Fornecedor {
 		return medicamentos;
 	}
 
-	public void setMedicamentos(List<Medicamento> medicamento) {
+	public void setMedicamentos(List<Medicamento> medicamentos) {
 		this.medicamentos = medicamentos;
 	}
 	

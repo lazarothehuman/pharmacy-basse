@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane onKeyPressed="#enterKeyPressed" prefHeight="600.0" prefWidth="963.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.ViewMovimentoController">
+<AnchorPane fx:id="ContentPane" onKeyPressed="#enterKeyPressed" prefHeight="600.0" prefWidth="963.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.ViewMovimentoController">
    <children>
       <SplitPane dividerPositions="0.14046822742474915" layoutX="169.0" layoutY="28.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -20,20 +20,7 @@
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER" layoutX="417.0" layoutY="43.0" prefHeight="25.0" prefWidth="274.0" visible="false">
-                     <children>
-                        <Hyperlink fx:id="home" layoutX="604.0" layoutY="43.0" onAction="#goHome" text="Home" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Hyperlink>
-                        <Hyperlink fx:id="about" layoutX="725.0" layoutY="43.0" onAction="#about" text="Sobre" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Hyperlink>
-                     </children>
-                  </HBox>
+                  
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="488.0" prefWidth="1278.0" style="-fx-background-color: #ffffff;">
@@ -47,13 +34,9 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn fx:id="codigoColumn" prefWidth="95.0" text="Codigo" />
                                     <TableColumn fx:id="dataColumn" prefWidth="137.0" text="Data" />
-                                    <TableColumn fx:id="validadeColumn" prefWidth="161.0" text="Validade" />
-                                    <TableColumn fx:id="quantidadeColumn" minWidth="0.0" prefWidth="73.0" text="Quantidade" />
-                                    <TableColumn fx:id="tipoColumn" prefWidth="145.0" text="Tipo" />
-                                    <TableColumn fx:id="nomeColumn" prefWidth="116.0" text="Nome Med." />
-                                    <TableColumn fx:id="fornecedorColumn" prefWidth="75.0" text="Fornecedor" />
+                                    <TableColumn fx:id="tipoColumn" minWidth="0.0" prefWidth="73.0" text="Tipo" />
+                                    <TableColumn fx:id="medicamentoColumn" prefWidth="145.0" text="Quantidade" />
                                     <TableColumn fx:id="registadorColumn" prefWidth="75.0" text="Registrador" />
                                  </columns>
                               </TableView>
@@ -70,8 +53,8 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" layoutX="1082.0" layoutY="46.0" spacing="5.0">
                            <children>
-                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="77.0" text="Nome:" />
-                              <TextField fx:id="nomeTf" layoutX="1145.0" layoutY="46.0" promptText="Nome do medicamento">
+                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="77.0" text="ID:" />
+                              <TextField fx:id="idTf" layoutX="1145.0" layoutY="46.0" promptText="Nome do medicamento">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin></TextField>
@@ -79,21 +62,8 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" layoutX="1082.0" layoutY="88.0" prefHeight="25.0" prefWidth="216.0" spacing="2.0">
                            <children>
-                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="85.0" text="Fornecedor:" />
-                              <TextField fx:id="fornecedorTf" layoutX="1145.0" layoutY="46.0" prefHeight="25.0" prefWidth="149.0" promptText="Nome do fornecedor">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin></TextField>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="107.0" prefHeight="25.0" prefWidth="216.0" spacing="2.0">
-                           <children>
-                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="87.0" text="Movimento:" />
-                              <TextField fx:id="movimentoTf" layoutX="1145.0" layoutY="46.0" prefHeight="25.0" prefWidth="149.0" promptText="Código do movimento">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </TextField>
+                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="85.0" text="Tipo:" />
+                              <JFXComboBox fx:id="tipoCombo" editable="true" prefHeight="25.0" prefWidth="143.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="5.0">
@@ -124,6 +94,7 @@
                   <HBox layoutX="33.0" layoutY="471.0" spacing="7.0" style="-fx-padding: 5; -fx-border-insets: 5; -fx-background-insets: 5;">
                      <children>
                         <JFXButton fx:id="actualizarStock" layoutX="34.0" layoutY="472.0" onAction="#addMedicamento" style="-fx-background-color: #32CD32;" text="Actualizar Stock" textFill="WHITE" />
+                        <JFXButton fx:id="actualizarStock1" onAction="#addMedicamento" style="-fx-background-color: #32CD32;" text="Visualizar movimento" textFill="WHITE" />
                         <JFXButton fx:id="removerMovimento" layoutX="306.0" layoutY="472.0" style="-fx-background-color: #32CD32;" text="Remover Movimento" textFill="WHITE" />
                      </children>
                   </HBox>

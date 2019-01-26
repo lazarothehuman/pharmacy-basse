@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 
@@ -24,8 +25,9 @@ public class Medicamento {
 
 	@Column(name = "nome", nullable = false, unique = false)
 	private String nome;
-	
-	@Column(nullable = false, unique = true)
+
+	// Atraves do codigo vamos poder categorizar
+	@Column(nullable = false, unique = false)
 	private String codigo;
 
 	@Column(name = "fabricante", nullable = false, unique = false)
@@ -39,21 +41,21 @@ public class Medicamento {
 
 	@Column(name = "quantidadeStock", nullable = false, unique = false)
 	private int quantidadeStock;
-	
+
 	@Column(name = "prazo", nullable = false)
 	@Type(type = "date")
 	private Date prazo;
 
-	@OneToMany(mappedBy="medicamento")
+	@ManyToMany(mappedBy = "medicamentos")
 	private List<Movimento> movimentos = new ArrayList<>();
-	
-	@ManyToOne
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(nullable = false)
 	private Fornecedor fornecedor;
 
 	@Column(nullable = false, columnDefinition = "bit")
 	private Boolean active = true;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -65,7 +67,7 @@ public class Medicamento {
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public Date getPrazo() {
 		return prazo;
 	}
@@ -125,25 +127,25 @@ public class Medicamento {
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-	
+
 	public List<Movimento> getMovimentos() {
 		return movimentos;
 	}
-	
+
 	public void addMovimento(Movimento movimento) {
-		if (movimento != null) 
+		if (movimento != null)
 			this.movimentos.add(movimento);
-		
+
 	}
-	
+
 	public void addToStock(int quantidade) {
-		this.quantidadeStock+=quantidade;
+		this.quantidadeStock += quantidade;
 	}
 
 	public void removeFromStock(int quantidade) {
-		if(quantidade<this.quantidadeStock)
-			this.quantidadeStock-=quantidade;
-		
+		if (quantidade < this.quantidadeStock)
+			this.quantidadeStock -= quantidade;
+
 	}
 
 	public Boolean getActive() {
@@ -158,9 +160,5 @@ public class Medicamento {
 	public String toString() {
 		return nome;
 	}
-
-
-
-
 
 }

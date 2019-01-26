@@ -31,6 +31,7 @@ import mz.humansolutions.models.dao.jpa.ProfileJpaDao;
 import mz.humansolutions.models.dao.jpa.SessionHelperJpaDao;
 import mz.humansolutions.models.dao.jpa.TransaccaoJpaDao;
 import mz.humansolutions.models.dao.jpa.UserJpaDao;
+import mz.humansolutions.utils.AlertUtils;
 import mz.humansolutions.utils.ProtectedConfigFile;
 
 public class DataManagerImp implements DataManager {
@@ -42,7 +43,7 @@ public class DataManagerImp implements DataManager {
 	MedicamentoDao medicamentoDao = new MedicamentoJpaDao();
 	MovimentoDao movimentoDao = new MovimentoJpaDao();
 	ClienteDao clienteDao = new ClienteJpaDao();
-	FornecedorDao fornecedorDao=new FornecedorJpaDao();
+	FornecedorDao fornecedorDao = new FornecedorJpaDao();
 
 	@Override
 	public void createUser(User user) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -168,8 +169,8 @@ public class DataManagerImp implements DataManager {
 	public List<Medicamento> findMedicamento(Long id, String fabricante, Boolean active, String nome,
 			Double precoUnitario, Integer quadntidadeStock, String paisOrigem, String codigo) {
 
-		return medicamentoDao.findMedicamento(id, fabricante, active, nome, precoUnitario, quadntidadeStock,
-				paisOrigem, codigo);
+		return medicamentoDao.findMedicamento(id, fabricante, active, nome, precoUnitario, quadntidadeStock, paisOrigem,
+				codigo);
 	}
 
 	@Override
@@ -181,13 +182,18 @@ public class DataManagerImp implements DataManager {
 	}
 
 	public void createMovimento(Movimento movimento) {
+		boolean goodToGo = true;
 		if (movimento != null) {
-			if(movimento.getTipo().equals(Tipo.ENTRADA)) 
-				movimento.getMedicamento().addToStock(movimento.getQuantidade());
-			else 
-				movimento.getMedicamento().removeFromStock(movimento.getQuantidade());
-			
-			movimentoDao.create(movimento);
+			if (movimento.getTipo().equals(Tipo.SAIDA)) {
+				for (Medicamento medicamento : movimento.getMedicamentos()) {
+					if (medicamento.getQuantidadeStock() < 0) {
+						AlertUtils.alertRupturaStock();
+						goodToGo = false;
+					}
+				}
+			}
+			if (goodToGo)
+				movimentoDao.create(movimento);
 		}
 
 	}
@@ -202,7 +208,7 @@ public class DataManagerImp implements DataManager {
 	@Override
 	public List<Cliente> findClientes(Long id, String nome, String email, String telefone, Date selectedStartDate,
 			Date selectedEndDate, Sexo sexo, Boolean activee) {
-		return clienteDao.find(id,nome,email,telefone, selectedStartDate, selectedEndDate, sexo, activee);
+		return clienteDao.find(id, nome, email, telefone, selectedStartDate, selectedEndDate, sexo, activee);
 	}
 
 	@Override
@@ -210,22 +216,23 @@ public class DataManagerImp implements DataManager {
 		if (cliente != null) {
 			clienteDao.update(cliente);
 		}
-		
+
 	}
 
 	@Override
-	public List<Movimento> findMovimento(Long id,Boolean active) {
-		return movimentoDao.findMovimento(id,active);
+	public List<Movimento> findMovimento(Long id, Boolean active) {
+		return movimentoDao.findMovimento(id, active);
 	}
 
 	@Override
-	public List<Fornecedor> findFornecedor(Long id, String nome, String telefone, String email, String endereco,Boolean active) {
-		return fornecedorDao.find(id,nome,telefone,email,endereco,active);
+	public List<Fornecedor> findFornecedor(Long id, String nome, String telefone, String email, String endereco,
+			Boolean active) {
+		return fornecedorDao.find(id, nome, telefone, email, endereco, active);
 	}
 
 	@Override
 	public void createFornecedor(Fornecedor fornecedor) {
-		fornecedorDao.create(fornecedor);	
+		fornecedorDao.create(fornecedor);
 	}
 
 	@Override
@@ -239,6 +246,12 @@ public class DataManagerImp implements DataManager {
 	@Override
 	public Cliente findCliente(Long id) {
 		return clienteDao.find(id);
+	}
+
+	@Override
+	public List<Movimento> findMovimento(Long id, Tipo tipo, Date startDate, Date endDate, Cliente cliente,
+			Boolean active) {
+		return movimentoDao.findMovimento(id, tipo, startDate, endDate, cliente, active);
 	}
 
 }

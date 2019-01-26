@@ -77,6 +77,11 @@ public class AlertUtils {
 		component.requestFocus();
 		
 	}
+
+	public static void alertRupturaStock() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

@@ -12,6 +12,7 @@ import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.Sexo;
+import mz.humansolutions.models.Tipo;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
 
@@ -79,5 +80,8 @@ public interface DataManager {
 	public Medicamento findMedicamentoByCode(String codigo);
 
 	public Cliente findCliente(Long id);
+
+	public List<Movimento> findMovimento(Long id, Tipo tipo, Date startDate,
+			Date endDate, Cliente cliente, Boolean active);
 
 }

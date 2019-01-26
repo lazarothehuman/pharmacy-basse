@@ -1,8 +1,9 @@
 package mz.humansolutions.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
@@ -30,17 +32,12 @@ public class Movimento {
 	@Type(type = "date")
 	private Date dataRealizacao;
 
-	@ManyToOne(cascade = { CascadeType.MERGE })
-	@JoinColumn(nullable = false)
-	private Medicamento medicamento;
+	@ManyToMany
+	private List<Medicamento> medicamentos = new ArrayList<>();
 
-	//indica a quantidade que vai entrar ou sair
-	@Column(name = "quantidade", nullable = false, unique = false)
-	private int quantidade;
-	
-	//quando ocorre uma entrada,este dado recebe null
+	// quando ocorre uma entrada,este dado recebe null
 	@ManyToOne
-	@JoinColumn(nullable=true)
+	@JoinColumn(nullable = true)
 	private Cliente cliente;
 
 	@ManyToOne
@@ -49,7 +46,7 @@ public class Movimento {
 
 	@Column(nullable = false, columnDefinition = "bit")
 	private Boolean active = true;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -74,20 +71,12 @@ public class Movimento {
 		this.dataRealizacao = localDate;
 	}
 
-	public Medicamento getMedicamento() {
-		return medicamento;
+	public List<Medicamento> getMedicamentos() {
+		return medicamentos;
 	}
 
-	public void setMedicamento(Medicamento medicamento) {
-		this.medicamento = medicamento;
-	}
-
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
+	public void setMedicamentos(List<Medicamento> medicamento) {
+		this.medicamentos = medicamento;
 	}
 
 	public User getRegistador() {
@@ -112,5 +101,10 @@ public class Movimento {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public void addMedicamento(Medicamento medicamento) {
+		if (medicamento != null)
+			this.medicamentos.add(medicamento);
 	}
 }
