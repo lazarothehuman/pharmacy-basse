@@ -23,23 +23,23 @@ public class Medicamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "nome", nullable = false, unique = false)
+	@Column(name = "nome", nullable = false)
 	private String nome;
 
 	// Atraves do codigo vamos poder categorizar
-	@Column(nullable = false, unique = false)
+	@Column(nullable = false)
 	private String codigo;
 
-	@Column(name = "fabricante", nullable = false, unique = false)
+	@Column(name = "fabricante")
 	private String fabricante;
 
-	@Column(name = "paisOrigem", nullable = false, unique = false)
+	@Column(name = "paisOrigem")
 	private String paisOrigem;
 
-	@Column(name = "precoUnitario", nullable = false, unique = false)
+	@Column(name = "precoUnitario", nullable = false)
 	private Double precoUnitario;
 
-	@Column(name = "quantidadeStock", nullable = false, unique = false)
+	@Column(name = "quantidadeStock", nullable = false)
 	private int quantidadeStock;
 
 	@Column(name = "prazo", nullable = false)
@@ -49,7 +49,7 @@ public class Medicamento {
 	@ManyToMany(mappedBy = "medicamentos")
 	private List<Movimento> movimentos = new ArrayList<>();
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(nullable = false)
 	private Fornecedor fornecedor;
 

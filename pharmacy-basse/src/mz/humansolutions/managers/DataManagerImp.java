@@ -192,8 +192,11 @@ public class DataManagerImp implements DataManager {
 					}
 				}
 			}
-			if (goodToGo)
+			if (goodToGo) {
+				for (Medicamento medicamento : movimento.getMedicamentos())
+					medicamentoDao.update(medicamento);
 				movimentoDao.create(movimento);
+			}
 		}
 
 	}
