@@ -1,22 +1,25 @@
 package application.forms;
 
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
+import mz.humansolutions.models.Fornecedor;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.utils.AlertUtils;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 
 public class AddMedicamentoController implements Initializable {
 
@@ -24,75 +27,74 @@ public class AddMedicamentoController implements Initializable {
 	private TextField nomeTF = new TextField();
 
 	@FXML
-	private ComboBox<String> comboFabricante;
+	private ComboBox<Fornecedor> comboFornecedor;
 
 	@FXML
 	private TextField precoTF = new TextField();
 
 	@FXML
 	private TextField paisTF = new TextField();
-	
+
 	@FXML
 	private TextField codigoTf = new TextField();
 
 	@FXML
+	private TextField fabricanteTf = new TextField();
+
+	@FXML
 	private Button adicionar = new Button();
+	
+	@FXML
+	private DatePicker prazo;
 
 	DataManager dataManager = new DataManagerImp();
 
 	public void add() {
-		Alert alert;
-		String nome = nomeTF.getText().toString();
-		double preco = Double.parseDouble(precoTF.getText().toString());
-		String pais = paisTF.getText().toString();
-		String fabricante = comboFabricante.getSelectionModel().getSelectedItem();
+		String selectedNome = nomeTF.getText();
+		String stringPreco = precoTF.getText();
+		double selectedPreco = 0;
+		if (stringPreco != null)
+			if (!stringPreco.isEmpty())
+				selectedPreco = Double.parseDouble(stringPreco);
+
+		String selectedPais = paisTF.getText();
+		Fornecedor selectedFornecedor = comboFornecedor.getValue();
+		String selectedFabricante = fabricanteTf.getText();
 		boolean duplicate = false;
-		String codigo = codigoTf.getText();
+		String selectedCodigo = codigoTf.getText();
+		LocalDate localDate = prazo.getValue();
+		Date selectedPrazo = null;
+		if (localDate != null) {
+			Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+			selectedPrazo = Date.from(instant);
+		}
 
-		if (nome == null || nome.isEmpty()) {
-			alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setContentText("Por favor insira um nome para o medicamento!");
-			alert.setTitle("Nome inválido");
-			alert.showAndWait();
-			nomeTF.setStyle("-fx-border-color:#ff0000;");
-		} else if (preco == 0.0) {
-			alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setContentText("Por favor insira um preco valido!");
-			alert.setTitle("Preco inválido");
-			alert.showAndWait();
-			precoTF.setStyle("-fx-border-color:#ff0000;");
-		} else if (pais == null || pais.isEmpty()) {
-			alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setContentText("Por favor insira o pais de origem deste medicamento!");
-			alert.setTitle("Pais inválido");
-			alert.showAndWait();
-			paisTF.setStyle("-fx-border-color:#ff0000;");
-		} else {
-			if (codigo == null || codigo.isEmpty()) {
-				alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setContentText("Por favor insira o pais de origem deste medicamento!");
-				alert.setTitle("Pais inválido");
-				alert.showAndWait();
-				codigoTf.setStyle("-fx-border-color:#ff0000;");
-			} else {
+		if (selectedNome == null || selectedNome.isEmpty())
+			AlertUtils.alertErro("Por favor insira um nome para o medicamento!", "Nome inválido", nomeTF);
+		else if (selectedPreco <= 0)
+			AlertUtils.alertErro("Por favor, insira um preço válido (>0)", "Preço inválido", precoTF);
+		else {
+			if (selectedCodigo == null || selectedCodigo.isEmpty())
+				AlertUtils.alertErro("Peço que insira o código", "Insira o código", codigoTf);
+			else {
+
 				Medicamento medicamento = new Medicamento();
-				medicamento.setNome(nome);
-				medicamento.setPrecoUnitario(preco);
+				medicamento.setNome(selectedNome);
+				medicamento.setPrecoUnitario(selectedPreco);
 				medicamento.setQuantidadeStock(0);
-				medicamento.setPaisOrigem(pais);
-				medicamento.setFabricante(fabricante);
-				medicamento.setCodigo(codigo);
+				medicamento.setPaisOrigem(selectedPais);
+				medicamento.setFabricante(selectedFabricante);
+				medicamento.setCodigo(selectedCodigo);
+				medicamento.setPrazo(selectedPrazo);
+				medicamento.setFornecedor(selectedFornecedor);
+				selectedFornecedor.addMedicamento(medicamento);
 
-				List<Medicamento> medicamentos = dataManager.findMedicamento(null, fabricante, null, nome, null, null,
-						codigo,null);
+				List<Medicamento> medicamentos = dataManager.findMedicamento(null, null, null, selectedNome, null, null,
+						selectedCodigo, null);
 				if (medicamentos != null) {
 					for (Medicamento medicamentoAux : medicamentos) {
-						if (medicamentoAux.getNome().equalsIgnoreCase(nome)
-								&& medicamentoAux.getFabricante().equalsIgnoreCase(fabricante))
+						if (medicamentoAux.getNome().equalsIgnoreCase(selectedNome)
+								&& medicamentoAux.getFabricante().equalsIgnoreCase(selectedFabricante))
 							duplicate = true;
 					}
 				}
@@ -100,7 +102,7 @@ public class AddMedicamentoController implements Initializable {
 				if (duplicate == false) {
 					dataManager.createMedicamento(medicamento);
 					AlertUtils.alertSucesso("Medicamento adicionado com sucesso");
-				} else 
+				} else
 					AlertUtils.alertErroSelecionar("O medicamento ja existe!");
 			}
 		}
@@ -108,8 +110,10 @@ public class AddMedicamentoController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		//comboFabricante.setItems(list);
-		precoTF.setText("0.0");
+		// comboFabricante.setItems(list);
+		List<Fornecedor> forncedores = dataManager.findFornecedor(null, null, null, null, null, true);
+		if (forncedores != null)
+			comboFornecedor.setItems(FXCollections.observableArrayList(forncedores));
 	}
 
 }
