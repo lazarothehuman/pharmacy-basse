@@ -72,7 +72,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox layoutX="389.0" layoutY="1.0" prefHeight="194.0" prefWidth="334.0">
+                  <VBox layoutX="389.0" layoutY="1.0" prefHeight="194.0" prefWidth="216.0">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                            <children>
@@ -86,7 +86,7 @@
                               <TextField fx:id="descontoTf" onKeyPressed="#enterKeyPressedValores" onMouseDragExited="#valores" />
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="35.0">
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="38.0">
                            <children>
                               <Label text="Total:" />
                               <TextField fx:id="totalTf" />
@@ -120,6 +120,13 @@
                         </TableView>
                      </children>
                   </AnchorPane>
+                  <HBox layoutX="620.0" layoutY="4.0" prefHeight="100.0" prefWidth="244.0" spacing="15.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="50.0" text="Cliente:" />
+                        <ComboBox fx:id="comboClientes" prefWidth="150.0" />
+                        <Button mnemonicParsing="false" onAction="#novoCliente" prefHeight="25.0" prefWidth="42.0" text="+" />
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </items>

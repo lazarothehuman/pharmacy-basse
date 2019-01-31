@@ -2,24 +2,30 @@ package application.forms;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
+import mz.humansolutions.models.Cliente;
+import mz.humansolutions.models.Fornecedor;
 import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.MedicamentoParaVenda;
 import mz.humansolutions.models.Movimento;
@@ -92,11 +98,18 @@ public class VendaController implements Initializable {
 
 	@FXML
 	Label lblProfile = new Label();
+	
+	@FXML
+	private ComboBox<Cliente> comboClientes;
+	
+	Cliente cliente;
 
 	DataManager dataManager = new DataManagerImp();
 
 	FrameManager frameManager = new FrameManager();
 
+	List<Cliente> clientes;
+	
 	List<Medicamento> listMedicamentos;
 	List<MedicamentoParaVenda> listItems = new ArrayList<MedicamentoParaVenda>();
 	Medicamento selectedMedicamento;
@@ -108,6 +121,11 @@ public class VendaController implements Initializable {
 			lblUser.setText(user.getName().toLowerCase());
 			lblProfile.setText(user.getProfile().getProfilename());
 		}
+		
+		clientes = dataManager.findClientes(null, null, null, null, null, null, null, true);
+		if (clientes != null)
+			comboClientes.setItems(FXCollections.observableArrayList(clientes));
+		
 
 		subTf.setText("0");
 		descontoTf.setText("0");
@@ -172,25 +190,36 @@ public class VendaController implements Initializable {
 	public void submeter() {
 		Medicamento medicamento;
 		Movimento movimento;
+		cliente=comboClientes.getValue();
+		if(listItems.size()!=0 ) {
+			if(cliente!=null) {
+				for (MedicamentoParaVenda med : listItems) {
 
-		for (MedicamentoParaVenda med : listItems) {
+					movimento = new Movimento();
+					movimento.setTipo(Tipo.SAIDA);
+					med.getMedicamento().removeFromStock(med.getQuantidade());
+					movimento.addMedicamento(med.getMedicamento());
+					movimento.setDataRealizacao(new Date());
+					movimento.setCliente(cliente);
+					// movimento.setCliente(1); sair uma janela para adicionar cliente antes do for
+					movimento.setRegistador(dataManager.findCurrentUser());
+					medicamento = med.getMedicamento();
+					if (med.getQuantidade() >= medicamento.getQuantidadeStock())
+						AlertUtils.alertErroSelecionar("Quantidade desejada não disponível");
+					else
+						dataManager.createMovimento(movimento);
+				}
 
-			movimento = new Movimento();
-			movimento.setTipo(Tipo.SAIDA);
-			med.getMedicamento().addToStock(med.getQuantidade());
-			movimento.addMedicamento(med.getMedicamento());
-			movimento.setDataRealizacao(new Date());
-			// movimento.setCliente(1); sair uma janela para adicionar cliente antes do for
-			movimento.setRegistador(dataManager.findCurrentUser());
-			medicamento = med.getMedicamento();
-			if (med.getQuantidade() >= medicamento.getQuantidadeStock())
-				AlertUtils.alertErroSelecionar("Quantidade desejada não disponível");
-			else
-				dataManager.createMovimento(movimento);
+				AlertUtils.alertSucesso("Operação concluída com sucesso");
+				refresh();
+			}
+			else {
+				AlertUtils.alertErro("Por favor selecione um cliente ou registe um novo.", "Cliente não selecionado", comboClientes);
+			}
 		}
-
-		AlertUtils.alertSucesso("Operação concluída com sucesso");
-		refresh();
+		else {
+			AlertUtils.alertErro("Não possui nenhum medicamento na lista desta venda.", "Medicamentos não selecioados", null);
+		}
 	}
 
 	public void adicionar() {
@@ -274,6 +303,35 @@ public class VendaController implements Initializable {
 		}
 	}
 
+	public void novoCliente() {
+		String nome,telefone;
+		
+		TextInputDialog dialog = new TextInputDialog("walter");
+		dialog.setTitle("Adicionar cliente");
+		dialog.setHeaderText(null);
+		dialog.setContentText("Por favor insira o nome do cliente:");
+		Optional<String> result = dialog.showAndWait();
+		
+		if (result.isPresent()){
+		    nome=result.get();
+		    dialog.setContentText("Por favor insira o telefone do cliente:");
+			result = dialog.showAndWait();
+			if (result.isPresent()){
+			    telefone=result.get();
+			    Cliente novoCliente=new Cliente();
+			    novoCliente.setNome(nome);
+			    novoCliente.setTelefone(telefone);
+			    novoCliente.setDataNascimento(Calendar.getInstance().getTime());
+			    //novoCliente.setSexo(new Comb);
+			    dataManager.createCliente(novoCliente);
+			    cliente=dataManager.findClientes(null, novoCliente.getNome(), null, novoCliente.getTelefone(), null, null, null, null).get(0);
+			    clientes.add(cliente);
+			    comboClientes.setItems(FXCollections.observableArrayList(clientes));
+			    comboClientes.getSelectionModel().select(cliente);
+			}
+		}
+	}
+	
 	public void enterKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER)
 			pesquisar();
@@ -283,5 +341,6 @@ public class VendaController implements Initializable {
 		if (event.getCode() == KeyCode.ENTER)
 			valores();
 	}
+	
 
 }
