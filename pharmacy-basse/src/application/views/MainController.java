@@ -24,6 +24,10 @@ public class MainController implements Initializable {
 
 	@FXML
 	Button clienteBtn;
+	
+	@FXML
+	Button fornecedorBtn;
+
 
 	@FXML
 	AnchorPane ContentPane;
@@ -63,7 +67,28 @@ public class MainController implements Initializable {
 
 	public void setContextMenu() {
 		user = dataManager.findCurrentUser();
-		visibilidadeMenus();
+		visibilidadeMenus();//hum ???
+		
+		MenuItem addFornecedor = new MenuItem("Adicionar fornecedor");
+		MenuItem viewFornecedores = new MenuItem("Visualizar fornecedores");
+		final ContextMenu contextMenuFornecedor = new ContextMenu();
+		contextMenuFornecedor.getItems().addAll(addFornecedor,viewFornecedores);
+		addFornecedor.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				addFornecedor();
+				
+			}
+		});
+		viewFornecedores.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				viewFornecedores();
+				
+			}
+		});
+		fornecedorBtn.setContextMenu(contextMenuFornecedor);
+		
 		MenuItem addCliente = new MenuItem("Adicionar cliente");
 		MenuItem viewClientes = new MenuItem("Visualizar todos clientes");
 		final ContextMenu contextMenuCliente = new ContextMenu();
@@ -89,13 +114,13 @@ public class MainController implements Initializable {
 		addUser.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Cut...");
+				adicionarUser();
 			}
 		});
 		viewUser.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Cut...");
+				viewUsers();
 			}
 		});
 		userBtn.setContextMenu(contextMenuUser);
@@ -132,6 +157,24 @@ public class MainController implements Initializable {
 		});
 
 		settingsButton.setContextMenu(contextMenuSettings);
+	}
+
+	protected void adicionarUser() {
+		AnchorPane content = frameManager.addUser(user);
+		setContent(content);
+		
+	}
+
+	protected void viewUsers() {
+		AnchorPane content = frameManager.viewUsers(user);
+		setContent(content);
+		
+	}
+
+	protected void viewFornecedores() {
+		AnchorPane content = frameManager.searchFornecedores(user);
+		setContent(content);
+		
 	}
 
 	public void viewMedicamento() {
