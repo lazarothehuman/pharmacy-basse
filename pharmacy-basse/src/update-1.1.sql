@@ -1,0 +1,2 @@
+insert into transaccao (code, url,active) values (207,'/application/forms/Add-Fornecedor.fxml', 1);
+insert into transaccao_profile(transaccao_id, profile_id) values ((select id from transaccao where code=207), 1);

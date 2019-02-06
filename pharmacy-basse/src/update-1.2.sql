@@ -87,7 +87,7 @@ CREATE TABLE `fornecedor` (
   `nome` varchar(255) NOT NULL,
   `telefone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +96,7 @@ CREATE TABLE `fornecedor` (
 
 LOCK TABLES `fornecedor` WRITE;
 /*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
-INSERT INTO `fornecedor` VALUES (1,'',NULL,NULL,'Medimoc',NULL);
+INSERT INTO `fornecedor` VALUES (1,'',NULL,NULL,'Medimoc',NULL),(2,'',NULL,NULL,'Sheridan',NULL);
 /*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,6 +123,7 @@ CREATE TABLE `fornecedor_medicamento` (
 
 LOCK TABLES `fornecedor_medicamento` WRITE;
 /*!40000 ALTER TABLE `fornecedor_medicamento` DISABLE KEYS */;
+INSERT INTO `fornecedor_medicamento` VALUES (2,4);
 /*!40000 ALTER TABLE `fornecedor_medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,17 +139,16 @@ CREATE TABLE `medicamento` (
   `active` bit(1) NOT NULL,
   `fabricante` varchar(255) NOT NULL,
   `nome` varchar(255) NOT NULL,
-  `paisOrigem` varchar(255) NOT NULL,
   `precoUnitario` double NOT NULL,
   `quantidadeStock` int(11) NOT NULL,
-  `codigo` varchar(255) NOT NULL,
   `prazo` date NOT NULL,
   `fornecedor_id` bigint(20) NOT NULL,
+  `codigo` varchar(255) NOT NULL,
+  `paisOrigem` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_gmh9vw8hkc1v1bcya0bv2hhuj` (`codigo`),
   KEY `FKaymxp1gqkv4nugdm8g2ggeqnq` (`fornecedor_id`),
   CONSTRAINT `FKaymxp1gqkv4nugdm8g2ggeqnq` FOREIGN KEY (`fornecedor_id`) REFERENCES `fornecedor` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +157,7 @@ CREATE TABLE `medicamento` (
 
 LOCK TABLES `medicamento` WRITE;
 /*!40000 ALTER TABLE `medicamento` DISABLE KEYS */;
-INSERT INTO `medicamento` VALUES (1,'','fabricante 1','Paracetamol','Moz',250,28,'','2019-01-01',1),(2,'','fabricante 1','Paracetamol','India',500,12,'11212121','2019-01-01',1),(3,'\0','fabricante 1','xarope','Br',100,0,'1231314','2019-01-01',1);
+INSERT INTO `medicamento` VALUES (1,'','fabricante 1','Paracetamol',250,28,'2019-01-01',1,'111',NULL),(2,'','fabricante 1','Paracetamol',500,12,'2019-01-01',1,'111',NULL),(3,'\0','fabricante 1','xarope',100,0,'2019-01-01',1,'111',NULL),(4,'','Medimoc','Bomba de Asma',2000,10,'2019-01-25',2,'111',NULL);
 /*!40000 ALTER TABLE `medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,21 +170,17 @@ DROP TABLE IF EXISTS `movimento`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `movimento` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `quantidade` int(11) NOT NULL,
   `tipo` varchar(255) NOT NULL,
-  `medicamento_id` bigint(20) NOT NULL,
   `registador_id` bigint(20) NOT NULL,
   `active` bit(1) NOT NULL,
   `dataRealizacao` date NOT NULL,
   `cliente_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKr40neoxpp3jqb7hmdbbjhlaoh` (`medicamento_id`),
   KEY `FKplmg0c07l40c7fvktjhgxf5s5` (`registador_id`),
   KEY `FKqcbufm56ymwnyiqv97b24qra2` (`cliente_id`),
   CONSTRAINT `FKplmg0c07l40c7fvktjhgxf5s5` FOREIGN KEY (`registador_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `FKqcbufm56ymwnyiqv97b24qra2` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id`),
-  CONSTRAINT `FKr40neoxpp3jqb7hmdbbjhlaoh` FOREIGN KEY (`medicamento_id`) REFERENCES `medicamento` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FKqcbufm56ymwnyiqv97b24qra2` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,8 +189,35 @@ CREATE TABLE `movimento` (
 
 LOCK TABLES `movimento` WRITE;
 /*!40000 ALTER TABLE `movimento` DISABLE KEYS */;
-INSERT INTO `movimento` VALUES (1,50,'entrada',1,2,'','0000-00-00',NULL),(2,22,'saida',1,2,'','0000-00-00',NULL),(3,12,'entrada',2,2,'','0000-00-00',NULL),(4,5,'SAIDA',3,1,'','2019-01-15',1),(5,4,'SAIDA',3,1,'','2019-01-15',1);
+INSERT INTO `movimento` VALUES (1,'ENTRADA',2,'','2019-01-15',NULL),(2,'SAIDA',2,'','2019-01-15',NULL),(3,'ENTRADA',2,'','2019-01-15',NULL),(4,'SAIDA',1,'','2019-01-15',1),(5,'SAIDA',1,'','2019-01-15',1),(6,'ENTRADA',1,'','2019-01-25',1),(8,'ENTRADA',1,'','2019-01-30',NULL),(9,'ENTRADA',1,'','2019-01-30',NULL),(10,'SAIDA',1,'','2019-01-30',NULL);
 /*!40000 ALTER TABLE `movimento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `movimento_medicamento`
+--
+
+DROP TABLE IF EXISTS `movimento_medicamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movimento_medicamento` (
+  `movimentos_id` bigint(20) NOT NULL,
+  `medicamentos_id` bigint(20) NOT NULL,
+  KEY `FK2eqkjf17uo17hpcvhn9ti3por` (`medicamentos_id`),
+  KEY `FK7f9s5brcsy68dnw799x7v347o` (`movimentos_id`),
+  CONSTRAINT `FK2eqkjf17uo17hpcvhn9ti3por` FOREIGN KEY (`medicamentos_id`) REFERENCES `medicamento` (`id`),
+  CONSTRAINT `FK7f9s5brcsy68dnw799x7v347o` FOREIGN KEY (`movimentos_id`) REFERENCES `movimento` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movimento_medicamento`
+--
+
+LOCK TABLES `movimento_medicamento` WRITE;
+/*!40000 ALTER TABLE `movimento_medicamento` DISABLE KEYS */;
+INSERT INTO `movimento_medicamento` VALUES (6,3),(8,4),(9,4),(10,4);
+/*!40000 ALTER TABLE `movimento_medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -264,7 +287,7 @@ CREATE TABLE `transaccao` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_if174yhk7av9f4t03aigb96ry` (`code`),
   UNIQUE KEY `UK_h7nxqj3ic3xbt073q9p9fkxv0` (`url`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +296,7 @@ CREATE TABLE `transaccao` (
 
 LOCK TABLES `transaccao` WRITE;
 /*!40000 ALTER TABLE `transaccao` DISABLE KEYS */;
-INSERT INTO `transaccao` VALUES (1,'',203,'/application/forms/Add-Movimento.fxml'),(2,'',202,'/application/forms/Add-Medicamento.fxml'),(3,'',204,'/application/forms/Modify-Medicamento.fxml'),(4,'',205,'/application/forms/Venda.fxml'),(5,'',301,'/application/views/View-Medicamentos.fxml'),(6,'',206,'/application/forms/Add-Client.fxml'),(7,'',306,'/application/views/View-Client.fxml'),(8,'',302,'/application/views/View-Movimentos.fxml');
+INSERT INTO `transaccao` VALUES (1,'',203,'/application/forms/Add-Movimento.fxml'),(2,'',202,'/application/forms/Add-Medicamento.fxml'),(3,'',204,'/application/forms/Modify-Medicamento.fxml'),(4,'',205,'/application/forms/Venda.fxml'),(5,'',301,'/application/views/View-Medicamentos.fxml'),(6,'',206,'/application/forms/Add-Client.fxml'),(7,'',306,'/application/views/View-Client.fxml'),(8,'',302,'/application/views/View-Movimentos.fxml'),(9,'',207,'/application/forms/Add-Fornecedor.fxml'),(10,'',307,'/application/views/View-Fornecedores.fxml');
 /*!40000 ALTER TABLE `transaccao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,7 +323,7 @@ CREATE TABLE `transaccao_profile` (
 
 LOCK TABLES `transaccao_profile` WRITE;
 /*!40000 ALTER TABLE `transaccao_profile` DISABLE KEYS */;
-INSERT INTO `transaccao_profile` VALUES (2,1),(2,1),(2,4),(1,1),(1,4),(3,1),(3,4),(4,1),(4,5),(4,4),(6,1),(6,4),(5,1),(5,4),(8,1),(8,4),(7,1),(7,1),(7,4);
+INSERT INTO `transaccao_profile` VALUES (2,1),(2,1),(2,4),(1,1),(1,4),(3,1),(3,4),(4,1),(4,5),(4,4),(6,1),(6,4),(5,1),(5,4),(8,1),(8,4),(7,1),(7,1),(7,4),(9,1),(9,4),(10,1);
 /*!40000 ALTER TABLE `transaccao_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,4 +371,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-15 23:28:29
+-- Dump completed on 2019-02-06 12:14:45

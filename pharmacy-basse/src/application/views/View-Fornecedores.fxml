@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="ContentPane" maxHeight="-Infinity" maxWidth="-Infinity"  prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.ViewForncedoresController">
+   <children>
+      <SplitPane dividerPositions="0.14046822742474915" layoutX="169.0" layoutY="28.0" orientation="VERTICAL" prefHeight="700.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="30.0" prefWidth="1100.0" style="-fx-background-color: #000000;">
+               <children>
+                  <Label alignment="TOP_CENTER" layoutY="6.0" prefHeight="81.0" prefWidth="1400.0" style="-fx-background-color: #006400;" text=" Visualizar Fornecedores" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="30.0" />
+                     </font></Label>
+                  <HBox alignment="CENTER" layoutX="563.0" layoutY="45.0" prefHeight="36.0" prefWidth="0.0" AnchorPane.leftAnchor="563.0" AnchorPane.rightAnchor="537.0" />
+               </children></AnchorPane>
+          <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <TableView fx:id="tableFornecedores"  prefHeight="465.0" prefWidth="868.0" style="-fx-border-width: 2; -fx-border-color: #000000;">
+                    <columns>
+                      <TableColumn fx:id="nomeColumn" prefWidth="194.0" text="Nome" />
+                      <TableColumn fx:id="enderecoColumn" prefWidth="207.0" text="Endereço" />
+                        <TableColumn fx:id="emailColumn" minWidth="0.0" prefWidth="226.0" text="E-mail" />
+                        <TableColumn fx:id="telefoneColumn" prefWidth="236.0" text="Telefone" />
+                    </columns>
+                  </TableView>
+                  <Label alignment="CENTER" layoutX="900.0" layoutY="11.0" prefHeight="36.0" prefWidth="172.0" style="-fx-background-color: #006400;" text="Pesquisa avançada" textFill="WHITE" AnchorPane.rightAnchor="28.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" layoutX="874.0" layoutY="47.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="418.0" prefWidth="198.0" spacing="25.0" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="47.0">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="1082.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" spacing="5.0" VBox.vgrow="NEVER">
+                           <children>
+                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="44.0" text="Nome:" wrapText="true" />
+                              <TextField fx:id="nomeTf" layoutX="1145.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="1082.0" layoutY="88.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="193.0" spacing="5.0" VBox.vgrow="NEVER">
+                           <children>
+                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="37.0" text="Email:" />
+                              <TextField fx:id="emailTf" layoutX="1145.0" layoutY="46.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="1083.0" layoutY="132.0" VBox.vgrow="NEVER">
+                           <children>
+                              <Label layoutX="1082.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="54.0" text="Telefone:" />
+                              <TextField fx:id="telefoneTf" layoutX="1145.0" layoutY="46.0" prefHeight="25.0" prefWidth="132.0" />
+                           </children>
+                        </HBox>
+                        <CheckBox fx:id="active" layoutX="1083.0" layoutY="256.0" mnemonicParsing="false" text="Mostrar inactivos" />
+                        <JFXButton layoutX="1108.0" layoutY="299.0" onAction="#pesquisar" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #006400;" text="Pesquisar" textFill="WHITE" />
+                     </children>
+                  </VBox>
+                  <HBox layoutX="33.0" layoutY="471.0" spacing="7.0" style="-fx-padding: 5; -fx-background-insets: 5; -fx-border-insets: 5;">
+                     <children>
+                        <JFXButton layoutX="34.0" layoutY="472.0" onAction="#addFornecedor" style="-fx-background-color: #006400;" text="Adicionar novo fornecedor" textFill="WHITE" />
+                        <JFXButton layoutX="184.0" layoutY="472.0" onAction="#modifyFornecedor" style="-fx-background-color: #006400;" text="Modificar fornecedor" textFill="WHITE" />
+                        <JFXButton layoutX="306.0" layoutY="472.0" onAction="#removeFornecedor" style="-fx-background-color: #006400;" text="Remover fornecedor" textFill="WHITE" />
+                     </children>
+                  </HBox>
+                  <Label layoutX="682.0" layoutY="473.0" text="Total de itens na procura:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotal" layoutX="847.0" layoutY="473.0" text="0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

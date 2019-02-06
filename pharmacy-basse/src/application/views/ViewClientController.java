@@ -19,7 +19,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,13 +27,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
 import mz.humansolutions.models.Cliente;
 import mz.humansolutions.models.Sexo;
 import mz.humansolutions.models.User;
+import mz.humansolutions.utils.AlertUtils;
 import mz.humansolutions.utils.FrameManager;
-
 
 public class ViewClientController implements Initializable {
 
@@ -42,6 +42,9 @@ public class ViewClientController implements Initializable {
 
 	@FXML
 	Button pesquisar;
+	
+	@FXML
+	AnchorPane ContentPane;
 
 	@FXML
 	Button adicionarCliente;
@@ -95,10 +98,9 @@ public class ViewClientController implements Initializable {
 
 	@FXML
 	TableColumn<Cliente, String> naturalidadeColumn;
-	
+
 	@FXML
 	TableColumn<Cliente, String> moradaColumn;
-	
 
 	@FXML
 	Label lblUser = new Label();
@@ -109,26 +111,15 @@ public class ViewClientController implements Initializable {
 	@FXML
 	Label lblTotal = new Label();
 
-	@FXML
-	Hyperlink home;
-
-	@FXML
-	Hyperlink about;
-
 	DataManager dataManager = new DataManagerImp();
 
 	FrameManager frameManager = new FrameManager();
-	
+
 	User user = dataManager.findCurrentUser();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		sexoCombo.setItems(FXCollections.observableArrayList(Sexo.values()));
-		User user = dataManager.findCurrentUser();
-		if (user != null) {
-			lblUser.setText(user.getName().toLowerCase());
-			lblProfile.setText(user.getProfile().getProfilename());
-		}
 		nomeColumn.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nome"));
 		emailColumn.setCellValueFactory(new PropertyValueFactory<Cliente, String>("email"));
 		telefoneColumn.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone"));
@@ -139,28 +130,7 @@ public class ViewClientController implements Initializable {
 	}
 
 	public void pesquisar() {
-		String nome = nomeTf.getText();
-		String email = emailTf.getText();
-		String telefone = telefoneTf.getText();
-		Sexo sexo = sexoCombo.getValue();
-		Boolean activee = true;
-		if (active.isSelected())
-			activee = false;
-		LocalDate localDateFim = dataFim.getValue();
-		LocalDate localDate = dataInicio.getValue();
-		Date selectedStartDate = null;
-		Date selectedEndDate = null;
-		if (localDate != null) {
-			Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-			selectedStartDate = Date.from(instant);
-		}
-		if (localDateFim != null) {
-			Instant instant = Instant.from(localDateFim.atStartOfDay(ZoneId.systemDefault()));
-			selectedEndDate = Date.from(instant);
-		}
-
-		clientes = dataManager.findClientes(null, nome, email, telefone, selectedStartDate, selectedEndDate, sexo,
-				activee);
+		
 		if (clientes != null) {
 			tableCliente.setItems(FXCollections.observableArrayList(clientes));
 		}
@@ -168,21 +138,23 @@ public class ViewClientController implements Initializable {
 	}
 
 	public void addCliente() {
-		frameManager.addCliente(dataManager.findCurrentUser());
+		AnchorPane content = frameManager.addCliente(user);
+		if (content != null)
+			setContent(content);
+	}
+
+	private void setContent(AnchorPane content) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void modificarCliente() {
 		Cliente cliente = null;
 		cliente = tableCliente.getSelectionModel().getSelectedItem();
-		if (cliente != null && user!=null) {
+		if (cliente != null && user != null)
 			frameManager.modifyCliente(cliente, user);
-		} else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Operação inválida");
-			alert.setContentText("Para modificar um cliente é necessário selecionar um!");
-			alert.setHeaderText(null);
-			alert.showAndWait();
-		}
+		else
+			AlertUtils.alertErroSelecionar("Para modificar um cliente é necessário selecionar um!");
 
 	}
 
@@ -211,26 +183,14 @@ public class ViewClientController implements Initializable {
 		frameManager.venda(dataManager.findCurrentUser());
 	}
 
-	public void about() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Sobre esta janela");
-		alert.setContentText("Esta janela tem objectivo de ajudar a visualizar todos "
-				+ "os clientes gravados no sistema. Do lado direito da tela vais encontrar um conjunto de filtros, "
-				+ "preencha os para uma busca mais refinada. Para sair desta tela, apenas prima voltar ou "
-				+ "no canto superior direito para tirar a janela. Nesta janela também é possível adicionar, modificar e remover um cliente. "
-				+ "Para voltar para janela principal, é necessário clicar no  HOME ou no x no canto superior a direita");
-		alert.setHeaderText(null);
-		alert.showAndWait();
-	}
-
 	public void doubleClickOnClient(MouseEvent event) {
 		if (event.getClickCount() == 2) {
 			modificarCliente();
 		}
 	}
-	
+
 	public void enterKeyPressed(KeyEvent event) {
-		if(event.getCode()== KeyCode.ENTER)
+		if (event.getCode() == KeyCode.ENTER)
 			pesquisar();
 	}
 
