@@ -193,23 +193,20 @@ public class VendaController implements Initializable {
 		cliente=comboClientes.getValue();
 		if(listItems.size()!=0 ) {
 			if(cliente!=null) {
+				movimento = new Movimento();
+				movimento.setTipo(Tipo.SAIDA);
+				movimento.setCliente(cliente);
+				movimento.setDataRealizacao(Calendar.getInstance().getTime());
+				movimento.setRegistador(dataManager.findCurrentUser());
 				for (MedicamentoParaVenda med : listItems) {
 
-					movimento = new Movimento();
-					movimento.setTipo(Tipo.SAIDA);
 					med.getMedicamento().removeFromStock(med.getQuantidade());
 					movimento.addMedicamento(med.getMedicamento());
-					movimento.setDataRealizacao(new Date());
-					movimento.setCliente(cliente);
-					// movimento.setCliente(1); sair uma janela para adicionar cliente antes do for
-					movimento.setRegistador(dataManager.findCurrentUser());
-					medicamento = med.getMedicamento();
-					if (med.getQuantidade() >= medicamento.getQuantidadeStock())
-						AlertUtils.alertErroSelecionar("Quantidade desejada não disponível");
-					else
-						dataManager.createMovimento(movimento);
+
 				}
 
+				dataManager.createMovimento(movimento);
+				
 				AlertUtils.alertSucesso("Operação concluída com sucesso");
 				refresh();
 			}
@@ -305,8 +302,8 @@ public class VendaController implements Initializable {
 
 	public void novoCliente() {
 		String nome,telefone;
-		
-		TextInputDialog dialog = new TextInputDialog("walter");
+		TextInputDialog dialog;
+		dialog = new TextInputDialog("");
 		dialog.setTitle("Adicionar cliente");
 		dialog.setHeaderText(null);
 		dialog.setContentText("Por favor insira o nome do cliente:");
@@ -314,6 +311,9 @@ public class VendaController implements Initializable {
 		
 		if (result.isPresent()){
 		    nome=result.get();
+		    dialog = new TextInputDialog("");
+		    dialog.setTitle("Adicionar cliente");
+		    dialog.setHeaderText(null);
 		    dialog.setContentText("Por favor insira o telefone do cliente:");
 			result = dialog.showAndWait();
 			if (result.isPresent()){
