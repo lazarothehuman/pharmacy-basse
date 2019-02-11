@@ -24,9 +24,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
+import mz.humansolutions.models.Medicamento;
 import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Tipo;
 import mz.humansolutions.models.User;
@@ -159,6 +161,14 @@ public class ViewMovimentoController implements Initializable {
 	public void enterKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER)
 			pesquisar();
+	}
+	
+	public void doubleClickOnMovimento(MouseEvent event) {
+		if (event.getClickCount() == 2) {
+			Movimento selectedMedicamento = null;
+			selectedMedicamento = tableMovimento.getSelectionModel().getSelectedItem();
+			frameManager.viewMedicamentosDoMovimento(selectedMedicamento);
+		}
 	}
 
 	public void actualizarStock() {
