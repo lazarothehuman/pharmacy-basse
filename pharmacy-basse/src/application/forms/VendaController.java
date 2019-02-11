@@ -10,15 +10,16 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -113,10 +114,13 @@ public class VendaController implements Initializable {
 	List<Medicamento> listMedicamentos;
 	List<MedicamentoParaVenda> listItems = new ArrayList<MedicamentoParaVenda>();
 	Medicamento selectedMedicamento;
+	User user;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		User user = dataManager.findCurrentUser();
+
+		user = dataManager.findCurrentUser();
+
 		if (user != null) {
 			lblUser.setText(user.getName().toLowerCase());
 			lblProfile.setText(user.getProfile().getProfilename());
@@ -126,6 +130,7 @@ public class VendaController implements Initializable {
 		if (clientes != null)
 			comboClientes.setItems(FXCollections.observableArrayList(clientes));
 		
+
 
 		subTf.setText("0");
 		descontoTf.setText("0");
@@ -205,35 +210,40 @@ public class VendaController implements Initializable {
 
 				}
 
+		for (MedicamentoParaVenda med : listItems) {
+			movimento = new Movimento();
+			movimento.setTipo(Tipo.SAIDA);
+			med.getMedicamento().removeFromStock(med.getQuantidade());
+			movimento.addMedicamento(med.getMedicamento());
+			movimento.setDataRealizacao(new Date());
+			// movimento.setCliente(1); sair uma janela para adicionar cliente antes do for
+			movimento.setRegistador(dataManager.findCurrentUser());
+			medicamento = med.getMedicamento();
+			if (med.getQuantidade() >= medicamento.getQuantidadeStock())
+				AlertUtils.alertErroSelecionar("Quantidade desejada não disponível");
+			else
 				dataManager.createMovimento(movimento);
-				
-				AlertUtils.alertSucesso("Opera��o conclu�da com sucesso");
+			
+				AlertUtils.alertSucesso("Operação concluída com sucesso");
 				refresh();
 			}
 			else {
-				AlertUtils.alertErro("Por favor selecione um cliente ou registe um novo.", "Cliente n�o selecionado", comboClientes);
+				AlertUtils.alertErro("Por favor selecione um cliente ou registe um novo.", "Cliente não selecionado", comboClientes);
 			}
 		}
 		else {
-			AlertUtils.alertErro("N�o possui nenhum medicamento na lista desta venda.", "Medicamentos n�o selecioados", null);
+			AlertUtils.alertErro("Não possui nenhum medicamento na lista desta venda.", "Medicamentos não selecioados", null);
 		}
 	}
 
 	public void adicionar() {
-		Alert alert;
 		try {
 			int qtd = Integer.parseInt(quantidadeTf.getText().trim());
 			int stock = Integer.parseInt(stockLb.getText());
 
-			if (qtd <= 0 || qtd > stock) {
-				alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setContentText("Por favor insira uma quantidade v�lida!");
-				alert.setTitle("Quantidade inv�lida");
-				alert.showAndWait();
-				quantidadeTf.setStyle("-fx-border-color:#ff0000;");
-				quantidadeTf.requestFocus();
-			} else {
+			if (qtd <= 0 || qtd > stock)
+				AlertUtils.alertErro("Por favor insira uma quantidade válida!", "Quantidade inválida", quantidadeTf);
+			else {
 
 				MedicamentoParaVenda novo = new MedicamentoParaVenda();
 				novo.setCodigo(selectedMedicamento.getId());
@@ -243,19 +253,13 @@ public class VendaController implements Initializable {
 				novo.setTotal(novo.getPrecoUnitario() * qtd);
 				novo.setMedicamento(selectedMedicamento);
 				listItems.add(novo);
-
 				listMedicamentos.remove(selectedMedicamento);
 				refresh();
 			}
 		} catch (NumberFormatException e) {
 			quantidadeTf.setText("1");
-			alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setContentText("Por favor insira uma quantidade v�lida!");
-			alert.setTitle("Quantidade inv�lida");
-			alert.showAndWait();
-			quantidadeTf.setStyle("-fx-border-color:#ff0000;");
-			quantidadeTf.requestFocus();
+			AlertUtils.alertErro("Por favor insira uma quantidade válida!", "Quantidade inválida", quantidadeTf);
+	
 		}
 	}
 

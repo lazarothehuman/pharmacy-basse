@@ -13,6 +13,7 @@
 		<class>mz.humansolutions.utils.SessionHelper</class>
 		<class>mz.humansolutions.models.Cliente</class>
 		<class>mz.humansolutions.models.Fornecedor</class>
+		<class> mz.humansolutions.system.SystemFunction</class>
 		<properties>
 			<!-- Propriedades JDBC -->
 			<property name="javax.persistence.jdbc.driver"

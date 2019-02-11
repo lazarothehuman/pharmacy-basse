@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.forms.AddFornecedorController">
+   <children>
+      <Label alignment="CENTER" prefHeight="106.0" prefWidth="700.0" style="-fx-background-color: #006400;" text="Fecho de Caixa" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="53.0" layoutY="122.0" prefHeight="66.0" prefWidth="1027.0" text="Fecho de caixa diário" textFill="DARKGREEN">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Line endX="1050.0" layoutX="20.0" layoutY="184.0" startX="35.0" stroke="#c2c2c2" />
+      <JFXButton layoutX="366.0" layoutY="615.0" onAction="#add" prefHeight="47.0" prefWidth="149.0" style="-fx-background-color: #006400;" text="Adicionar" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="533.0" layoutY="615.0" prefHeight="47.0" prefWidth="149.0" style="-fx-background-color: #ffffff; -fx-border-color: #006400; -fx-border-width: 2;" text="Cancelar" textFill="DARKGREEN">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="55.0" layoutY="214.0" style="-fx-background-color: #006400;" text="Fecho de caixa" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
