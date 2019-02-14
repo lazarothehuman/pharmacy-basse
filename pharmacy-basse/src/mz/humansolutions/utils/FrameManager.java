@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import application.forms.ModifyMedicamentoController;
 import application.forms.ModifyUserController;
+import application.views.ViewMedicamentosDoMovimentoController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,7 @@ import mz.humansolutions.managers.DataManager;
 import mz.humansolutions.managers.DataManagerImp;
 import mz.humansolutions.models.Cliente;
 import mz.humansolutions.models.Medicamento;
+import mz.humansolutions.models.Movimento;
 import mz.humansolutions.models.Profile;
 import mz.humansolutions.models.Transaccao;
 import mz.humansolutions.models.User;
@@ -338,6 +340,28 @@ public class FrameManager {
 	
 	public AnchorPane goToMain() {
 		return null;
+	}
+	
+	public void viewMedicamentosDoMovimento(Movimento movimento) {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/application/views/View-MedicamentosDoMovimento.fxml"));
+		
+			try {
+				loader.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			ViewMedicamentosDoMovimentoController view=loader.getController();
+			view.setMovimento(movimento);
+			
+			Parent p=loader.getRoot();
+			Stage stage=new Stage();
+			stage.setScene(new Scene(p));
+			stage.showAndWait();
+		
 	}
 
 }

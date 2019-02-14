@@ -29,7 +29,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="701.0">
                            <children>
-                              <TableView fx:id="tableMovimento" prefHeight="452.0" prefWidth="676.0" style="-fx-border-width: 2; -fx-border-color: #000000;" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="tableMovimento" onMouseClicked="#doubleClickOnMovimento" prefHeight="452.0" prefWidth="676.0" style="-fx-border-width: 2; -fx-border-color: #000000;" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>

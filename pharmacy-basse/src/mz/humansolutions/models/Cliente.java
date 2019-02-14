@@ -36,7 +36,7 @@ public class Cliente {
 	private String email;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Sexo sexo;
 	
 	@Column

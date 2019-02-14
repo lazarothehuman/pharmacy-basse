@@ -30,7 +30,7 @@ CREATE TABLE `cliente` (
   `morada` varchar(255) DEFAULT NULL,
   `naturalidade` varchar(255) DEFAULT NULL,
   `nome` varchar(255) NOT NULL,
-  `sexo` varchar(255) NOT NULL,
+  `sexo` varchar(255) DEFAULT NULL,
   `telefone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
