@@ -14,4 +14,8 @@ public class SystemManager {
 		}
 	}
 
+	public SystemFunction getFunction(String function) {
+		return sistemaDao.find(function);
+	}
+
 }

@@ -6,4 +6,6 @@ public interface SystemFunctionDao {
 
 	void create(SystemFunction function);
 
+	SystemFunction find(String function);
+
 }
