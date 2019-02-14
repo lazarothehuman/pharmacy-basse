@@ -99,10 +99,10 @@ public class VendaController implements Initializable {
 
 	@FXML
 	Label lblProfile = new Label();
-	
+
 	@FXML
 	private ComboBox<Cliente> comboClientes;
-	
+
 	Cliente cliente;
 
 	DataManager dataManager = new DataManagerImp();
@@ -110,7 +110,7 @@ public class VendaController implements Initializable {
 	FrameManager frameManager = new FrameManager();
 
 	List<Cliente> clientes;
-	
+
 	List<Medicamento> listMedicamentos;
 	List<MedicamentoParaVenda> listItems = new ArrayList<MedicamentoParaVenda>();
 	Medicamento selectedMedicamento;
@@ -125,12 +125,10 @@ public class VendaController implements Initializable {
 			lblUser.setText(user.getName().toLowerCase());
 			lblProfile.setText(user.getProfile().getProfilename());
 		}
-		
+
 		clientes = dataManager.findClientes(null, null, null, null, null, null, null, true);
 		if (clientes != null)
 			comboClientes.setItems(FXCollections.observableArrayList(clientes));
-		
-
 
 		subTf.setText("0");
 		descontoTf.setText("0");
@@ -195,9 +193,9 @@ public class VendaController implements Initializable {
 	public void submeter() {
 		Medicamento medicamento;
 		Movimento movimento;
-		cliente=comboClientes.getValue();
-		if(listItems.size()!=0 ) {
-			if(cliente!=null) {
+		cliente = comboClientes.getValue();
+		if (listItems.size() != 0) {
+			if (cliente != null) {
 				movimento = new Movimento();
 				movimento.setTipo(Tipo.SAIDA);
 				movimento.setCliente(cliente);
@@ -210,29 +208,30 @@ public class VendaController implements Initializable {
 
 				}
 
-		for (MedicamentoParaVenda med : listItems) {
-			movimento = new Movimento();
-			movimento.setTipo(Tipo.SAIDA);
-			med.getMedicamento().removeFromStock(med.getQuantidade());
-			movimento.addMedicamento(med.getMedicamento());
-			movimento.setDataRealizacao(new Date());
-			// movimento.setCliente(1); sair uma janela para adicionar cliente antes do for
-			movimento.setRegistador(dataManager.findCurrentUser());
-			medicamento = med.getMedicamento();
-			if (med.getQuantidade() >= medicamento.getQuantidadeStock())
-				AlertUtils.alertErroSelecionar("Quantidade desejada não disponível");
-			else
-				dataManager.createMovimento(movimento);
-			
-				AlertUtils.alertSucesso("Operação concluída com sucesso");
-				refresh();
+				for (MedicamentoParaVenda med : listItems) {
+					movimento = new Movimento();
+					movimento.setTipo(Tipo.SAIDA);
+					med.getMedicamento().removeFromStock(med.getQuantidade());
+					movimento.addMedicamento(med.getMedicamento());
+					movimento.setDataRealizacao(new Date());
+					// movimento.setCliente(1); sair uma janela para adicionar cliente antes do for
+					movimento.setRegistador(dataManager.findCurrentUser());
+					medicamento = med.getMedicamento();
+					if (med.getQuantidade() >= medicamento.getQuantidadeStock())
+						AlertUtils.alertErroSelecionar("Quantidade desejada não disponível");
+					else
+						dataManager.createMovimento(movimento);
+
+					AlertUtils.alertSucesso("Operação concluída com sucesso");
+					refresh();
+				}
+			} else {
+				AlertUtils.alertErro("Por favor selecione um cliente ou registe um novo.", "Cliente não selecionado",
+						comboClientes);
 			}
-			else {
-				AlertUtils.alertErro("Por favor selecione um cliente ou registe um novo.", "Cliente não selecionado", comboClientes);
-			}
-		}
-		else {
-			AlertUtils.alertErro("Não possui nenhum medicamento na lista desta venda.", "Medicamentos não selecioados", null);
+		} else {
+			AlertUtils.alertErro("Não possui nenhum medicamento na lista desta venda.",
+					"Medicamentos não selecioados", null);
 		}
 	}
 
@@ -259,7 +258,7 @@ public class VendaController implements Initializable {
 		} catch (NumberFormatException e) {
 			quantidadeTf.setText("1");
 			AlertUtils.alertErro("Por favor insira uma quantidade válida!", "Quantidade inválida", quantidadeTf);
-	
+
 		}
 	}
 
@@ -305,37 +304,38 @@ public class VendaController implements Initializable {
 	}
 
 	public void novoCliente() {
-		String nome,telefone;
+		String nome, telefone;
 		TextInputDialog dialog;
 		dialog = new TextInputDialog("");
 		dialog.setTitle("Adicionar cliente");
 		dialog.setHeaderText(null);
 		dialog.setContentText("Por favor insira o nome do cliente:");
 		Optional<String> result = dialog.showAndWait();
-		
-		if (result.isPresent()){
-		    nome=result.get();
-		    dialog = new TextInputDialog("");
-		    dialog.setTitle("Adicionar cliente");
-		    dialog.setHeaderText(null);
-		    dialog.setContentText("Por favor insira o telefone do cliente:");
+
+		if (result.isPresent()) {
+			nome = result.get();
+			dialog = new TextInputDialog("");
+			dialog.setTitle("Adicionar cliente");
+			dialog.setHeaderText(null);
+			dialog.setContentText("Por favor insira o telefone do cliente:");
 			result = dialog.showAndWait();
-			if (result.isPresent()){
-			    telefone=result.get();
-			    Cliente novoCliente=new Cliente();
-			    novoCliente.setNome(nome);
-			    novoCliente.setTelefone(telefone);
-			    novoCliente.setDataNascimento(Calendar.getInstance().getTime());
-			    //novoCliente.setSexo(new Comb);
-			    dataManager.createCliente(novoCliente);
-			    cliente=dataManager.findClientes(null, novoCliente.getNome(), null, novoCliente.getTelefone(), null, null, null, null).get(0);
-			    clientes.add(cliente);
-			    comboClientes.setItems(FXCollections.observableArrayList(clientes));
-			    comboClientes.getSelectionModel().select(cliente);
+			if (result.isPresent()) {
+				telefone = result.get();
+				Cliente novoCliente = new Cliente();
+				novoCliente.setNome(nome);
+				novoCliente.setTelefone(telefone);
+				novoCliente.setDataNascimento(Calendar.getInstance().getTime());
+				// novoCliente.setSexo(new Comb);
+				dataManager.createCliente(novoCliente);
+				cliente = dataManager.findClientes(null, novoCliente.getNome(), null, novoCliente.getTelefone(), null,
+						null, null, null).get(0);
+				clientes.add(cliente);
+				comboClientes.setItems(FXCollections.observableArrayList(clientes));
+				comboClientes.getSelectionModel().select(cliente);
 			}
 		}
 	}
-	
+
 	public void enterKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER)
 			pesquisar();
@@ -345,6 +345,5 @@ public class VendaController implements Initializable {
 		if (event.getCode() == KeyCode.ENTER)
 			valores();
 	}
-	
 
 }
